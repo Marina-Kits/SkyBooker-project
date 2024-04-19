@@ -1,0 +1,28 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Jura';
+    color: var(--text-color);
+    text-decoration: none;
+    text-transform: none;
+    list-style: none;
+}
+:root {
+    --blue-color: #A1EAFB;
+    --pink-color: #FECFF3;
+    --violet-color: #CBBBE8;
+    --blue-hover: #81E2F9;
+    --pink-hover: #FFB5EE;
+    --violet-hover: #C6AFEE;
+    --text-color: #584D6D;
+}
+::-webkit-scrollbar {
+    width: 15px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--violet-color);
+    border-radius: 5px;
+}
