@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>SkyBooker</title>
+</head>
+<body>
+    <nav id="header">
+        <a href="index.html" class="logo">
+            <img src="img/logo.png">
+        </a>
+        <div id="authorization-buttons">
+            <button id="login-button">Вход</button>
+            <button id="signup-button">Регистрация</button>
+        </div>
+    </nav>
+    <section id="main-content">
+        <div id="flights-search">
+            <div class="search-container">
+                <input type="search" id="from-input" placeholder="Откуда">
+                <ul class="cities-list" id="from-cities-list">
+                    <li>Москва</li>
+                    <li>Питер</li>
+                    <li>Екб</li>
+                    <li>Хз</li>
+                    <li>Какие еще города есть</li>
+                    <li>Лондон</li>
+                    <li>Паришь</li>
+                    <li>9 общага</li>
+                    <li>Хз х2</li>
+                    <li>Монетка</li>
+                    <li>ртф чемпион</li>
+                    <li>я больше нигде не была</li>
+                    <li>в париже и лондоне тоже не была так-то</li>
+                </ul>
+            </div>
+            
+            <div class="search-container">
+                <input type="search" id="to-input" placeholder="Куда">
+                <ul class="cities-list" id="to-cities-list">
+                    <li>Москва</li>
+                    <li>Питер</li>
+                    <li>Екб</li>
+                    <li>Хз</li>
+                    <li>Какие еще города есть</li>
+                    <li>Лондон</li>
+                    <li>Паришь</li>
+                    <li>9 общага</li>
+                    <li>Хз х2</li>
+                    <li>Монетка</li>
+                    <li>ртф чемпион</li>
+                    <li>я больше нигде не была</li>
+                    <li>в париже и лондоне тоже не была так-то</li>
+                </ul>
+            </div>
+            <input type="text" id="datepicker" placeholder="Когда">
+            <div id="passengers-number-choice">
+                <div class="dropdown-button">1 пассажир</div>
+                <ul class="dropdown-list">
+                    <li>1 пассажир</li>
+                    <li>2 пассажира</li>
+                    <li>3 пассажира</li>
+                    <li>4 пассажира</li>
+                    <li>5 пассажиров</li>
+                    <li>6 пассажиров</li>
+                    <li>7 пассажиров</li>
+                    <li>8 пассажиров</li>
+                    <li>9 пассажиров</li>
+                    <li>10 пассажиров</li>
+                </ul>
+            </div>
+            <div id="service-class-choice">
+                <div class="dropdown-button">Эконом</div>
+                <ul class="dropdown-list">
+                    <li>Эконом</li>
+                    <li>Комфорт</li>
+                    <li>Бизнес</li>
+                    <li>Первый класс</li>
+                </ul>
+            </div>
+            <button id="find-tickets">Найти билеты</button>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownButtons = document.querySelectorAll('.dropdown-button');
+            const dropdownLists = document.querySelectorAll('.dropdown-list');
+
+            dropdownButtons.forEach(function(button, index) {
+                button.addEventListener('click', function(event) {
+                    const dropdownList = dropdownLists[index];
+                    dropdownList.classList.toggle('show');
+                    event.stopPropagation();
+                });
+            });
+
+            document.addEventListener('click', function(event) {
+                dropdownLists.forEach(function(list) {
+                    if (!list.contains(event.target)) {
+                        list.classList.remove('show');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        flatpickr("#datepicker", {
+          dateFormat: "Y-m-d",
+          altInput: true,
+          altFormat: "F j, Y",
+        });
+      </script>
+      <script src="js/city-search.js"></script>
+</body>
+</html>
