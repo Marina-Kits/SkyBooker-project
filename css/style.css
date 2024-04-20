@@ -14,6 +14,9 @@
     --blue-hover: #81E2F9;
     --pink-hover: #FFB5EE;
     --violet-hover: #C6AFEE;
+    --blue-light: rgb(161, 234, 251, 0.35);
+    --pink-light: #FFB5EE;
+    --violet-light: #C6AFEE;
     --text-color: #584D6D;
 }
 ::-webkit-scrollbar {
