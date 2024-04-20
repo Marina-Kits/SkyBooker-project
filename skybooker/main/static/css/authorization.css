@@ -131,11 +131,6 @@ button:hover{
     position: absolute;
     right: 30px;
 }
-.messages{
-    position: fixed;
-    top: 100px;
-    left: 400px;
-    background-color: red;
-    width: 100px;
-    height: 100px;
+.errors-notification{
+    max-width: 400px;
 }

@@ -33,6 +33,7 @@
                 <label class="form-label"><img src="{% static 'img/lock.svg' %}">Введите пароль...</label>
             </div>
             <button type="submit">Сохранить</button>
+            <div class="errors-notification">{{form.errors}}</div>
         </form>
     </div>
     <script>
