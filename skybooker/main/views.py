@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return render(request, 'main/login.html')
+    return render(request, 'main/index.html')
 
 
 @login_required

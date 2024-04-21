@@ -33,9 +33,11 @@
                 <label class="form-label"><img src="{% static 'img/lock.svg' %}">Введите пароль...</label>
             </div>
             <button type="submit">Сохранить</button>
-            <div class="errors-notification">{{form.errors}}</div>
         </form>
     </div>
+    {% if form.errors %}
+        <div class="errors-notification">{{form.errors}}</div>
+    {% endif %}
     <script>
         const passwordInput = document.getElementById("password-input");
         const toggleButton = document.getElementById("toggle-button");
@@ -50,6 +52,15 @@
                 icon.src = "{% static 'img/eye-closed.svg' %}";
             }
         });
+    </script>
+    <script>
+        const messageDivs = document.getElementsByClassName('errors-notification');
+        function hideDiv() {
+           for (let i = 0; i < messageDivs.length; i++) {
+               messageDivs[i].style.display = 'none';
+           }
+        }
+        setTimeout(hideDiv, 5000);
     </script>
 </body>
 </html>

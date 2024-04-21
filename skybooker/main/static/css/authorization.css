@@ -132,5 +132,12 @@ button:hover{
     right: 30px;
 }
 .errors-notification{
-    max-width: 400px;
+    max-width: 450px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-color: var(--background-color);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #F6AAAA;
 }
