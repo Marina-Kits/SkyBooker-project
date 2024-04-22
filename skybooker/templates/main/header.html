@@ -9,7 +9,7 @@
     {% if not user.is_authenticated %}
     <div id="authorization-buttons">
         <a href="{% url 'login' %}" id="login-button">Вход</a>
-        <a id="signup-button">Регистрация</a>
+        <a href="{% url 'signup' %}" id="signup-button">Регистрация</a>
     </div>
     {% else %}
     <div id="profile-buttons">
