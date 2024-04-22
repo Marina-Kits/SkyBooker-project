@@ -4,6 +4,6 @@ from .views import profile_view, index
 app_name = 'main'
 
 urlpatterns = [
-    path('profile', profile_view, name='profile'),
-    path('', index)
+    path('profile/', profile_view, name='profile'),
+    path('', index, name='index'),
 ]

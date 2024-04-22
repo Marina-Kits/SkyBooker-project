@@ -15,14 +15,14 @@
 <body>
     <div id="container">
         <div id="login-text">
-            <h1>Войти</h1>
+            <h1>Вход</h1>
         </div>
         <form class="login-form" method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="form-group">
                 <input type="text" class="form-input" placeholder=" " name="username" required>
-                <span class="label-hover">Адрес электронной почты</span>
-                <label class="form-label"><img src="{% static 'img/email.svg' %}">Введите адрес электронной почты...</label>
+                <span class="label-hover">Логин</span>
+                <label class="form-label"><img src="{% static 'img/email.svg' %}">Введите логин...</label>
             </div>
             <div class="form-group">
                 <div id="toggle-button">
@@ -32,11 +32,11 @@
                 <span class="label-hover">Пароль</span>
                 <label class="form-label"><img src="{% static 'img/lock.svg' %}">Введите пароль...</label>
             </div>
-            <button type="submit">Сохранить</button>
+            <button type="submit">Войти</button>
         </form>
     </div>
     {% if form.errors %}
-        <div class="errors-notification">{{form.errors}}</div>
+        <div class="errors-notification">Аккаунт не найден. Проверьте введенные данные</div>
     {% endif %}
     <script>
         const passwordInput = document.getElementById("password-input");

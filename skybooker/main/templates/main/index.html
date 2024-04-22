@@ -15,19 +15,7 @@
     <title>SkyBooker</title>
 </head>
 <body>
-    <nav id="header">
-        <a href="index.html" class="logo">
-            <img src="{% static 'img/logo.svg' %}">
-        </a>
-        {% if not user.is_authenticated %}
-        <div id="authorization-buttons">
-            <a href="{% url 'login' %}" id="login-button">Вход</a>
-            <a id="signup-button">Регистрация</a>
-        </div>
-        {% else %}
-
-        {% endif %}
-    </nav>
+    {% include 'main/header.html' %}
     <section id="main-content">
         <div id="flights-search">
             <div class="search-container">

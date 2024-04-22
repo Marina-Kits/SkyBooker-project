@@ -1,0 +1,27 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+</head>
+<nav id="header">
+    <a href="{% url 'main:index' %}" class="logo">
+        <img src="{% static 'img/logo.svg' %}">
+    </a>
+    {% if not user.is_authenticated %}
+    <div id="authorization-buttons">
+        <a href="{% url 'login' %}" id="login-button">Вход</a>
+        <a id="signup-button">Регистрация</a>
+    </div>
+    {% else %}
+    <div id="profile-buttons">
+        <a href="{% url 'main:profile' %}" id="profile-button">
+            <img src="{% static 'img/profile.svg' %}" width="25px">                
+        </a>
+        <form action="{% url 'logout' %}?next=/" method="post">
+            {% csrf_token %}
+            <button type="submit">
+                <img src="{% static 'img/logout.svg' %}" width="25px">
+            </button>
+        </form>
+    </div>
+    {% endif %}
+</nav>
