@@ -42,5 +42,8 @@
             <button type="submit">Сохранить</button>
         </form>
     </div>
+    {% if form.errors %}
+        <div class="errors-notification">Аккаунт не создан. Проверьте введенные данные</div>
+    {% endif %}
 </body>
 </html>
