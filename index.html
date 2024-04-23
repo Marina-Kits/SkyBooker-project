@@ -131,7 +131,36 @@
             </ul>
         </div>
         <section id="tickets-list">
-            <p id="filters-label">Билет</p>
+            <div class="ticket-card">
+                <p class="ticket-airline">Авиакомпания Smartavia</p>
+                <div class="ticket-time-info">
+                    <div class="ticket-departure-info">
+                        <span>Отправление</span>
+                        <p class="ticket-time">7:15</p>
+                        <p class="ticket-city-date">Екатеринбург<br>25.04</p>
+                    </div>
+                    <div class="ticket-travel-time-container">
+                        <span>Время в пути</span>
+                        <p class="ticket-time">2 ч 50 м</p>
+                    </div>
+                    <div class="ticket-arrival-info">
+                        <span>Прибытие</span>
+                        <p class="ticket-time">8:05</p>
+                        <p class="ticket-city-date">Санкт-Петербург<br>25.04</p>
+                    </div>
+                </div>
+                <div class="ticket-price-info">
+                    <div class="ticket-price">
+                        <span>Цена</span>
+                        <p class="ticket-price-value">12838</p>                        
+                    </div>
+                    <div class="ticket-luggage-price">
+                        <span>Багаж</span>
+                        <p class="ticket-price-value">2590</p>                        
+                    </div>
+                </div>
+                <button class="buy-ticket">Приобрести билет</button>
+            </div>
         </section>
     </section>
     <script>
@@ -165,62 +194,28 @@
     </script>
     <script src="js/city-search.js"></script>
     <script>
-        /*const airlines = ['Airline A', 'Airline B', 'Airline C', 'Airline D'];
-        function generateAirlineCheckboxes() {
-            const airlineFilters = document.getElementById('airline-filters');
-
-            airlineFilters.innerHTML = '';
-
-            airlines.forEach(function(airline) {
-                const listItem = document.createElement('li');
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.value = airline;
-                checkbox.id = airline.replace(/\s+/g, '');
-                const label = document.createElement('label');
-                label.htmlFor = checkbox.id;
-                label.textContent = airline;
-                listItem.appendChild(checkbox);
-                listItem.appendChild(label);
-                airlineFilters.appendChild(listItem);
-            });
-        }
-        generateAirlineCheckboxes();*/
-        // Sample data for airlines, departure airports, and arrival airports
         const airlines = ['Airline A', 'Airline B', 'Airline C', 'Airline D'];
         const departureAirports = ['Airport X', 'Airport Y', 'Airport Z'];
         const arrivalAirports = ['Airport A', 'Airport B', 'Airport C'];
-
-        // Function to generate checkboxes for a given list
         function generateCheckboxes(list, containerId) {
             const container = document.getElementById(containerId);
-            container.innerHTML = ''; // Clear existing checkboxes
-
+            container.innerHTML = '';
             list.forEach(function(item) {
                 const listItem = document.createElement('li');
-
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
                 checkbox.value = item;
                 checkbox.id = item.replace(/\s+/g, '');
-
                 const label = document.createElement('label');
                 label.htmlFor = checkbox.id;
                 label.textContent = item;
-
                 listItem.appendChild(checkbox);
                 listItem.appendChild(label);
                 container.appendChild(listItem);
             });
         }
-
-        // Generate checkboxes for airlines
         generateCheckboxes(airlines, 'airline-filters');
-
-        // Generate checkboxes for departure airports
         generateCheckboxes(departureAirports, 'departure-filters');
-
-        // Generate checkboxes for arrival airports
         generateCheckboxes(arrivalAirports, 'arrival-filters');
 
     </script>
