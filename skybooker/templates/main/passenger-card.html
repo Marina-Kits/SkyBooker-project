@@ -1,0 +1,26 @@
+{% load static %}
+<button class="delete-passenger-button"><img src="{% static 'img/delete-passenger.svg' %}"></button>
+<ul class="passenger-characteristics">
+    <li class="passenger-characteristic">
+        <p class="passenger-characteristic-name">ФИО:</p>
+        <p class="passenger-characteristic-value">{{ passenger.full_name }}</p>
+    </li>
+    <li class="passenger-characteristic">
+        <p class="passenger-characteristic-name">Пол:</p>
+        <p class="passenger-characteristic-value">
+            {% if passenger.gender == 'M' %}
+                Мужской
+            {% else %}
+                Женский
+            {% endif %}
+        </p>
+    </li>
+    <li class="passenger-characteristic">
+        <p class="passenger-characteristic-name">Дата рождения:</p>
+        <p class="passenger-characteristic-value">{{ passenger.date_of_birth }}</p>
+    </li>
+    <li class="passenger-characteristic">
+        <p class="passenger-characteristic-name">Номер паспорта:</p>
+        <p class="passenger-characteristic-value">{{ passenger.passport_number }}</p>
+    </li>
+</ul>
