@@ -13,6 +13,32 @@
 </head>
 <body>
     {% include 'main/header.html' %}
-    <div style="margin-top: 100px;">{{user.username}}</div>
+    <div style="margin-top: 100px;">
+        <h1>Профиль пользователя: {{ user.username }}</h1>
+        <form action="{% url 'main:add_passenger' %}" method="post">
+            {% csrf_token %}
+            <label for="full_name">Full Name:</label>
+            <input type="text" id="full_name" name="full_name" required>
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
+            </select>
+            <label for="date_of_birth">Date of Birth:</label>
+            <input type="date" id="date_of_birth" name="date_of_birth" required>
+            <label for="passport_number">Passport Number:</label>
+            <input type="text" id="passport_number" name="passport_number" required>
+            <button type="submit">Add Passenger</button>
+        </form>
+        <h2>List of Passengers:</h2>
+        <ul>
+            {% for passenger in user.passengers.all %}
+                <li>{{ passenger.full_name }}</li>
+            {% empty %}
+                <li>No passengers added yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

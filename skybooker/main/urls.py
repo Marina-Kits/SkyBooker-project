@@ -6,5 +6,6 @@ app_name = 'main'
 
 urlpatterns = [
     path('profile/', profile_view, name='profile'),
+    path('add_passenger/', views.add_passenger_view, name='add_passenger'),
     path('', index, name='index'),
 ]
