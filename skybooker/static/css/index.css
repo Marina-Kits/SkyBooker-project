@@ -110,4 +110,141 @@ input:hover,
 .dropdown-button:hover{
     background-color: var(--blue-color);
     box-shadow: 0px 0px 10px 0px rgba(129, 226, 249, .7);
+}/*фильтры*/
+#search-filters{
+    padding: 25px 0;
+    position: absolute;
+    top: 300px;
+    left: 30px;
+    background-color: var(--blue-light);
+    width: 330px;
+    border-radius: 10px;
+}
+#filters-label{
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 37.86px;
+    text-align: center;
+}
+input[type="checkbox"],
+input[type="radio"]{
+    height: 16px;
+}
+.filter-option{
+    padding: 11px 20px 15px 20px;
+    border-top: 1px solid var(--text-color);
+}
+.filter-name{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23.66px;
+    margin-bottom: 7px;
+}
+.options-list{
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-left: 30px;
+}
+#search-filters label{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.29px;
+}
+.options-list > li{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+input[type="number"]{
+    height: 21px;
+    width: 120px;
+    background-color: var(--background-color);
+}
+
+
+/*билеты*/
+#tickets-list{
+    margin-top: 72px;
+    width: 730px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin-bottom: 30px;
+}
+.ticket-card{
+    position: relative;
+    height: 265px;
+    background-color: var(--pink-light);
+    border-radius: 10px;
+}
+.ticket-airline{
+    background-color: var(--violet-color);
+    height: 39px;
+    padding-left: 22px;
+    padding-top: 18px;
+    border-radius: 10px 10px 0 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23.66px;
+}
+.ticket-time-info{
+    margin-top: 7px;
+    margin-left: 38px;
+    display: flex;
+    gap: 40px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.29px;
+    text-align: center;
+}
+.ticket-time{
+    font-size: 24px;
+    margin-top: 21px;
+}
+.ticket-city-date{
+    font-size: 14px;
+    margin-top: 11px;
+}
+.ticket-price-info{
+    position: absolute;
+    right: 22px;
+    top: 75px;
+}
+.ticket-luggage-price,
+.ticket-price{
+    display: flex;
+    gap: 33px;
+    align-items: center;
+}
+.ticket-luggage-price > span,
+.ticket-price > span{
+    display: block;
+    width: 56px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28.39px;
+}
+.ticket-price-value{
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 42.59px;
+    text-align: center;
+    display: block;
+    width: 120px;
+}
+.ticket-luggage-price > span{
+    font-size: 20px;
+}
+.ticket-luggage-price > .ticket-price-value{
+    font-size: 32px;
+}
+.buy-ticket{
+    position: absolute;
+    right: 43px;
+    bottom: 20px;
+    width: 175px;
+    height: 60px;
+    background-color: var(--violet-light);
+    padding: 10px;
 }

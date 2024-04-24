@@ -82,6 +82,55 @@
             </div>
             <button id="find-tickets">Найти билеты</button>
         </div>
+        <div id="search-filters">
+            <p id="filters-label">Фильтры поиска</p>
+            <ul id="filter-list">
+                <li class="filter-option">
+                    <p class="filter-name">Авиакомпания</p>
+                    <ul class="options-list" id="airline-filters"></ul>
+                </li>
+                <li class="filter-option">
+                    <p class="filter-name">Стоимость</p>
+                    <ul class="options-list">
+                        <div id="from-filter-container">
+                            <label for="price-from">От</label>
+                            <input type="number" id="price-from" name="price-from">
+                        </div>
+                        <div id="to-filter-container">
+                            <label for="price-to">До</label>
+                            <input type="number" id="price-to" name="price-to">
+                        </div>
+                    </ul>
+                </li>
+                <li class="filter-option">
+                    <p class="filter-name">Аэропорт отбытия</p>
+                    <ul class="options-list" id="departure-filters"></ul>
+                </li>
+                <li class="filter-option">
+                    <p class="filter-name">Аэропорт прибытия</p>
+                    <ul class="options-list" id="arrival-filters"></ul>
+                </li>
+                <li class="filter-option">
+                    <p class="filter-name">Сортировка</p>
+                    <ul class="options-list">
+                        <li>
+                            <input type="radio" id="sort-price" name="sort-option" value="price">
+                            <label for="sort-price">Дешевые</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="sort-time" name="sort-option" value="time">
+                            <label for="sort-time">Время вылета</label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <section id="tickets-list">
+            <!-- здесь через цикл отображаются билеты -->
+            {% include 'main/ticket.html' %}
+            {% include 'main/ticket.html' %}
+            {% include 'main/ticket.html' %}
+        </section>
     </section>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -113,5 +162,31 @@
         });
       </script>
       <script src="{% static 'js/city-search.js' %}"></script>
+    <script>
+        const airlines = ['Airline A', 'Airline B', 'Airline C', 'Airline D'];
+        const departureAirports = ['Airport X', 'Airport Y', 'Airport Z'];
+        const arrivalAirports = ['Airport A', 'Airport B', 'Airport C'];
+        function generateCheckboxes(list, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            list.forEach(function(item) {
+                const listItem = document.createElement('li');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = item;
+                checkbox.id = item.replace(/\s+/g, '');
+                const label = document.createElement('label');
+                label.htmlFor = checkbox.id;
+                label.textContent = item;
+                listItem.appendChild(checkbox);
+                listItem.appendChild(label);
+                container.appendChild(listItem);
+            });
+        }
+        generateCheckboxes(airlines, 'airline-filters');
+        generateCheckboxes(departureAirports, 'departure-filters');
+        generateCheckboxes(arrivalAirports, 'arrival-filters');
+
+    </script>
 </body>
 </html>
