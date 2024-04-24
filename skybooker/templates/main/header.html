@@ -14,12 +14,12 @@
     {% else %}
     <div id="profile-buttons">
         <a href="{% url 'main:profile' %}" id="profile-button">
-            <img src="{% static 'img/profile.svg' %}" width="25px">                
+            <img src="{% static 'img/profile.svg' %}" width="45px">
         </a>
         <form action="{% url 'logout' %}?next=/" method="post">
             {% csrf_token %}
             <button type="submit">
-                <img src="{% static 'img/logout.svg' %}" width="25px">
+                <img src="{% static 'img/logout.svg' %}" width="45px">
             </button>
         </form>
     </div>
