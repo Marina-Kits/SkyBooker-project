@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <title>Профиль</title>
+</head>
+<body>
+    <nav id="header">
+        <a href="index.html" class="logo">
+            <img src="img/logo.svg">
+        </a>
+        <div id="authorization-buttons">
+            <button id="login-button">Вход</button>
+            <button id="signup-button">Регистрация</button>
+        </div>
+    </nav>
+    <section id="main-content">
+        <div id="user-info">
+            <ul id="user-characteristics">
+                <li class="user-characteristic">
+                    <p class="profile-characteristic-name">Пользователь:</p>
+                    <p class="profile-characteristic-value">абвгд</p>
+                </li>
+                <li class="user-characteristic">
+                    <p class="profile-characteristic-name">Почта:</p>
+                    <div class="profile-user-email">
+                        <input id="user-email" type="text" placeholder="абвгд@чето.там">
+                    </div>
+                </li>
+            </ul>
+            <button id="save-user-info">Сохранить</button>
+        </div>
+        <div id="profile-passengers-info">
+            <div id="passengers-buttons">
+                <button id="open-passengers-list">Пассажиры</button>
+                <button id="profile-add-passenger"><img src="img/add-passenger.svg"></button>
+            </div>
+            <form action="{% url 'main:add_passenger' %}" id="add-passenger-form" method="post">
+                <ul class="passenger-characteristics">
+                    <li class="passenger-characteristic">
+                        <label for="full_name">ФИО:</label>
+                        <input type="text" id="full_name" name="full_name" placeholder="Введите текст" required>
+                    </li>
+                    <li class="passenger-characteristic">
+                        <label for="gender">Пол:</label>
+                        <select id="gender" name="gender" required>
+                            <option value="M">Мужской</option>
+                            <option value="F">Женский</option>
+                            <option value="O">Other</option>
+                        </select>
+                    </li>
+                    <li class="passenger-characteristic">
+                        <label for="date_of_birth">Дата рождения:</label>
+                        <input type="date" id="date_of_birth" name="date_of_birth" required>
+                    </li>
+                    <li class="passenger-characteristic">
+                        <label for="passport_number">Номер паспорта:</label>
+                        <input type="text" id="passport_number" name="passport_number" placeholder="Введите номер" required>
+                    </li>
+                </ul>
+                <button type="submit">Добавить пассажира</button>
+            </form>
+            <ul id="profile-passengers-list">
+                <li class="profile-passenger-info">
+                    <button class="delete-passenger-button"><img src="img/delete-passenger.svg"></button>
+                    <ul class="passenger-characteristics">
+                        <li class="passenger-characteristic">
+                            <p class="passenger-characteristic-name">ФИО:</p>
+                            <p class="passenger-characteristic-value">Кто То Там</p>
+                        </li>
+                        <li class="passenger-characteristic">
+                            <p class="passenger-characteristic-name">Пол:</p>
+                            <p class="passenger-characteristic-value">Женский</p>
+                        </li>
+                        <li class="passenger-characteristic">
+                            <p class="passenger-characteristic-name">Дата рождения:</p>
+                            <p class="passenger-characteristic-value">00.00.0000</p>
+                        </li>
+                        <li class="passenger-characteristic">
+                            <p class="passenger-characteristic-name">Номер паспорта:</p>
+                            <p class="passenger-characteristic-value">0000000000</p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+</body>
+</html>
