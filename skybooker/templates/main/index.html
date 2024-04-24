@@ -1,20 +1,12 @@
+{% extends 'main/head-template.html' %}
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block styles %}
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <title>SkyBooker</title>
-</head>
-<body>
+{% endblock %}
+{% block title %}SkyBooker{% endblock %}
+{% block content %}
     {% include 'main/header.html' %}
     <section id="main-content">
         <div id="flights-search">
@@ -126,7 +118,7 @@
             </ul>
         </div>
         <section id="tickets-list">
-            <!-- здесь через цикл отображаются билеты -->
+            <!-- здесь через цикл отображаются билеты, эти по фану здесь, удали -->
             {% include 'main/ticket.html' %}
             {% include 'main/ticket.html' %}
             {% include 'main/ticket.html' %}
@@ -188,5 +180,4 @@
         generateCheckboxes(arrivalAirports, 'arrival-filters');
 
     </script>
-</body>
-</html>
+{% endblock %}
