@@ -1,5 +1,8 @@
 {% load static %}
-<button class="delete-passenger-button"><img src="{% static 'img/delete-passenger.svg' %}"></button>
+<button class="delete-passenger-button" data-passenger-id="{{ passenger.id }}">
+    <img src="{% static 'img/delete-passenger.svg' %}">
+</button>
+
 <ul class="passenger-characteristics">
     <li class="passenger-characteristic">
         <p class="passenger-characteristic-name">ФИО:</p>

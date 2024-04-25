@@ -39,7 +39,6 @@
                         <select id="gender" name="gender" required>
                             <option value="M">Мужской</option>
                             <option value="F">Женский</option>
-                            <option value="O">Other</option>
                         </select>
                     </li>
                     <li class="passenger-characteristic">
@@ -69,29 +68,73 @@
             const addPassengerForm = document.getElementById('add-passenger-form');
             const profilePassengersList = document.getElementById('profile-passengers-list');
 
-            const initialDisplayValues = {
-                'profile-passengers-list': 'flex',
-                'profile-add-passenger': 'block',
-                'add-passenger-form': 'flex'
-            };
-
             openPassengersListBtn.addEventListener('click', function() {
-                toggleVisibility(profilePassengersList);
-                toggleVisibility(profileAddPassengerBtn);
-                toggleVisibility(addPassengerForm);
+                if (profilePassengersList.style.display === 'none'){
+                    profilePassengersList.style.display = 'flex';
+                    profileAddPassengerBtn.style.display = 'block';
+                } else {
+                    addPassengerForm.style.display = 'none'
+                    profilePassengersList.style.display = 'none';
+                    profileAddPassengerBtn.style.display = 'none';
+                }
             });
 
             profileAddPassengerBtn.addEventListener('click', function() {
-                toggleVisibility(addPassengerForm);
-            });
-
-            function toggleVisibility(element) {
-                if (element.style.display === 'none') {
-                    element.style.display = initialDisplayValues[element.id] || 'block';
+                if (addPassengerForm.style.display === 'none'){
+                    addPassengerForm.style.display = 'flex';
                 } else {
-                    element.style.display = 'none';
+                    addPassengerForm.style.display = 'none'
                 }
-            }
+            });
         });
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        $(document).on('click', '.delete-passenger-button', function() {
+            var passengerId = $(this).data('passenger-id');
+            if (confirm('Are you sure you want to delete this passenger?')) {
+                $.ajax({
+                    url: '/delete-passenger/' + passengerId + '/',
+                    type: 'POST',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                    },
+                    success: function(response) {
+                        console.log('Passenger deleted successfully');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error deleting passenger:', error);
+                    }
+                });
+            }
+        });
+    });
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('add-passenger-form').addEventListener('submit', function (event) {
+                event.preventDefault();  // Prevent default form submission
+                var form = this;
+                // Perform AJAX request to add passenger
+                $.ajax({
+                    url: form.action,
+                    type: form.method,
+                    data: $(form).serialize(),  // Serialize form data
+                    success: function (response) {
+                        console.log('Passenger added successfully');
+                        // Redirect user to the profile page after successful addition
+                        window.location.href = '{% url "main:profile" %}';
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error adding passenger:', error);
+                        // Handle error if needed
+                    }
+                });
+            });
+        });
+    </script>
+
 {% endblock %}

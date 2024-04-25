@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Passenger
@@ -28,3 +28,15 @@ def add_passenger_view(request):
         )
         current_user.passengers.add(passenger)
     return render(request, 'main/profile.html')
+
+
+def delete_passenger_view(request, passenger_id):
+    if request.method == 'POST':
+        try:
+            passenger = Passenger.objects.get(pk=passenger_id)
+            passenger.delete()
+            return JsonResponse({'success': True, 'message': 'Passenger deleted successfully'})
+        except Passenger.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Passenger does not exist'})
+    else:
+        return HttpResponseBadRequest('Invalid request')
