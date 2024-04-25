@@ -151,3 +151,8 @@
     position: absolute;
     left: -50px;
 }
+#profile-add-passenger,
+#add-passenger-form,
+#profile-passengers-list{
+    display: none;
+}

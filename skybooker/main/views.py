@@ -40,3 +40,14 @@ def delete_passenger_view(request, passenger_id):
             return JsonResponse({'success': False, 'message': 'Passenger does not exist'})
     else:
         return HttpResponseBadRequest('Invalid request')
+
+
+@login_required
+def update_email(request):
+    if request.method == 'POST':
+        new_email = request.POST.get('email')
+        request.user.email = new_email
+        request.user.save()
+        return JsonResponse({'success': True, 'message': 'Email updated successfully'})
+    else:
+        return JsonResponse({'success': False, 'message': 'Invalid request'}, status=400)

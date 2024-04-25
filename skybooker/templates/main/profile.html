@@ -111,30 +111,62 @@
             }
         });
     });
-
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('add-passenger-form').addEventListener('submit', function (event) {
-                event.preventDefault();  // Prevent default form submission
+                event.preventDefault();
                 var form = this;
-                // Perform AJAX request to add passenger
                 $.ajax({
                     url: form.action,
                     type: form.method,
-                    data: $(form).serialize(),  // Serialize form data
+                    data: $(form).serialize(),
                     success: function (response) {
                         console.log('Passenger added successfully');
-                        // Redirect user to the profile page after successful addition
                         window.location.href = '{% url "main:profile" %}';
                     },
                     error: function (xhr, status, error) {
                         console.error('Error adding passenger:', error);
-                        // Handle error if needed
                     }
                 });
             });
         });
     </script>
-
+    <script>
+        $(document).ready(function() {
+            $('#save-user-info').click(function() {
+                var newEmail = $('#user-email').val();
+                var csrftoken = getCookie('csrftoken');
+                $.ajax({
+                    url: '/update-email/',
+                    type: 'POST',
+                    data: {
+                        'email': newEmail,
+                        'csrfmiddlewaretoken': csrftoken
+                    },
+                    success: function(response) {
+                        console.log('Email updated successfully');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating email:', error);
+                    }
+                });
+            });
+        });
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
 {% endblock %}
