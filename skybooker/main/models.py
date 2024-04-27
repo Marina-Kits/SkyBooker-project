@@ -48,7 +48,7 @@ class Flight(models.Model):
 class FlightClassInfo(models.Model):
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     service_class = models.CharField(max_length=20, choices=Tickets.CLASS_CHOICES)
-    seats_number = models.IntegerField()
+    seats_number = models.IntegerField(default=0)
     luggage_price = models.DecimalField(max_digits=10, decimal_places=2)
     ticket_price = models.DecimalField(max_digits=10, decimal_places=2)
 
