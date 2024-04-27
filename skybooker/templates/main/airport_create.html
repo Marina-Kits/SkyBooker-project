@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Airport</title>
+</head>
+<body>
+    <h1>Create Airport</h1>
+    <form action="{% url 'main:create_airport' %}" method="post">
+        {% csrf_token %}
+        {{ airport_form.as_p }}
+        <button type="submit">Create Airport</button>
+    </form>
+    <a href="{% url 'main:create_flight' %}">Create a Flight</a>
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+</body>
+</html>

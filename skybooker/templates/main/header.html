@@ -13,6 +13,9 @@
     </div>
     {% else %}
     <div id="profile-buttons">
+        {% if user.is_superuser %}
+            <a href="{% url 'main:flight_list' %}" id="flights-button">Список рейсов</a>
+        {% endif %}
         <a href="{% url 'main:profile' %}" id="profile-button">
             <img src="{% static 'img/profile.svg' %}" width="45px">
         </a>
