@@ -51,3 +51,5 @@ def update_email(request):
         return JsonResponse({'success': True, 'message': 'Email updated successfully'})
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request'}, status=400)
+
+
