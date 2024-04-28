@@ -1,8 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.utils.decorators import method_decorator
+
 from .models import Passenger, Airport, Tickets
 from .models import Flight
 from .forms import FlightForm
@@ -61,11 +64,21 @@ def update_email(request):
         return JsonResponse({'success': False, 'message': 'Invalid request'}, status=400)
 
 
+def admin_required(view_func):
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_superuser:
+            raise PermissionDenied
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
+
+
+@method_decorator(admin_required, name='dispatch')
 class FlightListView(ListView):
     model = Flight
     template_name = 'flight_list.html'
 
 
+@method_decorator(admin_required, name='dispatch')
 class FlightCreateView(CreateView):
     model = Flight
     form_class = FlightForm
@@ -73,17 +86,17 @@ class FlightCreateView(CreateView):
     success_url = '/flights/'
 
 
+@admin_required
 def create_flight_view(request):
-    # Your view logic to render the flight creation form
     return render(request, 'main/flight_create.html')
 
 
+@admin_required
 def create_flight(request):
     if request.method == 'POST':
         flight_form = FlightForm(request.POST)
         if flight_form.is_valid():
             flight = flight_form.save()
-            # Create FlightClassInfo instances for each service class
             for service_class, _ in Tickets.CLASS_CHOICES:
                 FlightClassInfo.objects.create(
                     flight=flight,
@@ -98,6 +111,7 @@ def create_flight(request):
     return render(request, 'main/flight_create.html', {'flight_form': flight_form})
 
 
+@admin_required
 def create_airport(request):
     if request.method == 'POST':
         airport_form = AirportForm(request.POST)

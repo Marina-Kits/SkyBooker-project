@@ -19,7 +19,7 @@ body{
     --pink-hover: #FFB5EE;
     --violet-hover: #C6AFEE;
     --blue-light: rgb(161, 234, 251, 0.35);
-    --pink-light: rgb(754, 207, 243, 0.5);
+    --pink-light: rgb(254, 207, 243, 0.5);
     --violet-light: rgb(203, 187, 232, 0.5);
     --text-color: #584D6D;
     --background-color: #FDFDFD;
@@ -28,9 +28,22 @@ body{
     width: 15px;
 }
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgb(203, 187, 232, 0.3);
 }
 ::-webkit-scrollbar-thumb {
     background: var(--violet-color);
     border-radius: 5px;
+}
+.errors-notification{
+    max-width: 450px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-color: var(--background-color);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #F6AAAA;
+    font-size: 18px;
+    font-weight: 500;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .1);
 }

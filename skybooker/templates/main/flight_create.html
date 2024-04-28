@@ -1,17 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Flight</title>
-</head>
-<body>
-    <h1>Create New Flight</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ flight_form.as_p }}
-        <button type="submit">Create Flight</button>
-    </form>
-    <a href="{% url 'main:create_airport' %}" class="btn btn-primary">Create Airport</a>
-</body>
-</html>
+{% extends 'main/head-template.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/flight-airport-create.css' %}">
+{% endblock %}
+{% block title %}Добавить рейс{% endblock %}
+{% block content %}
+    {% include 'main/header.html' %}
+    <section id="main-content">
+        <h1>Добавить рейс</h1>
+        <form method="post">
+            {% csrf_token %}
+            <h2>Основная информация:</h2>
+            <p><label for="id_departure_airport">Аэропорт отправления:</label>
+            {{ flight_form.departure_airport }}</p>
+            <p><label for="id_arrival_airport">Аэропорт прибытия:</label>
+            {{ flight_form.arrival_airport }}</p>
+            <p><label for="id_departure_time">Время отправления:</label>
+            {{ flight_form.departure_time }}</p>
+            <p><label for="id_arrival_time">Время прибытия:</label>
+            {{ flight_form.arrival_time }}</p>
+        
+            <h2>Эконом класс:</h2>
+            <p><label for="id_economy_seats">Количество мест:</label>
+            {{ flight_form.economy_seats }}</p>
+            <p><label for="id_economy_ticket_price">Цена билета:</label>
+            {{ flight_form.economy_ticket_price }}</p>
+            <p><label for="id_economy_luggage_price">Цена багажа:</label>
+            {{ flight_form.economy_luggage_price }}</p>
+        
+            <h2>Комфорт класс:</h2>
+            <p><label for="id_comfort_seats">Количество мест:</label>
+            {{ flight_form.comfort_seats }}</p>
+            <p><label for="id_comfort_ticket_price">Цена билета:</label>
+            {{ flight_form.comfort_ticket_price }}</p>
+            <p><label for="id_comfort_luggage_price">Цена багажа:</label>
+            {{ flight_form.comfort_luggage_price }}</p>
+        
+            <h2>Бизнес класс:</h2>
+            <p><label for="id_business_seats">Количество мест:</label>
+            {{ flight_form.business_seats }}</p>
+            <p><label for="id_business_ticket_price">Цена билета:</label>
+            {{ flight_form.business_ticket_price }}</p>
+            <p><label for="id_business_luggage_price">Цена багажа:</label>
+            {{ flight_form.business_luggage_price }}</p>
+        
+            <h2>Первый класс:</h2>
+            <p><label for="id_first_class_seats">Количество мест:</label>
+            {{ flight_form.first_class_seats }}</p>
+            <p><label for="id_first_class_ticket_price">Цена билета:</label>
+            {{ flight_form.first_class_ticket_price }}</p>
+            <p><label for="id_first_class_luggage_price">Цена багажа:</label>
+            {{ flight_form.first_class_luggage_price }}</p>
+        
+            <button type="submit">Добавить</button>
+        </form>
+        <a href="{% url 'main:create_airport' %}" class="btn btn-primary">Добавить аэропорт</a>
+    </section>
+{% endblock %}

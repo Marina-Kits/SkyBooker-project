@@ -5,9 +5,10 @@ from .models import Flight, FlightClassInfo, Airport
 
 
 class FlightForm(forms.ModelForm):
-    departure_airport = forms.ModelChoiceField(queryset=Airport.objects.all(), label='Departure Airport')
-    departure_time = forms.DateTimeField(label='Departure Time', input_formats=['%d-%m-%Y %H:%M'], widget=DateTimeInput(attrs={'type': 'datetime-local'}))
-    arrival_time = forms.DateTimeField(label='Arrival Time', input_formats=['%d-%m-%Y %H:%M'], widget=DateTimeInput(attrs={'type': 'datetime-local'}))
+    departure_airport = forms.ModelChoiceField(queryset=Airport.objects.all(), label='Аэропорт отправления')
+    arrival_airport = forms.ModelChoiceField(queryset=Airport.objects.all(), label='Аэропорт прибытия')
+    departure_time = forms.DateTimeField(label='Время отправления', input_formats=['%d-%m-%Y %H:%M'], widget=DateTimeInput(attrs={'type': 'datetime-local'}))
+    arrival_time = forms.DateTimeField(label='Время прибытия', input_formats=['%d-%m-%Y %H:%M'], widget=DateTimeInput(attrs={'type': 'datetime-local'}))
     economy_seats = forms.IntegerField(label='Number of Economy Seats')
     economy_ticket_price = forms.DecimalField(label='Economy Ticket Price')
     economy_luggage_price = forms.DecimalField(label='Economy Luggage Price')
@@ -30,3 +31,8 @@ class AirportForm(forms.ModelForm):
     class Meta:
         model = Airport
         fields = ['name', 'city']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].label = 'Название'
+        self.fields['city'].label = 'Город'

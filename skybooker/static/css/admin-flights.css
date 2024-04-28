@@ -1,0 +1,49 @@
+#main-content{
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 30px;
+}
+h1{
+    font-weight: 500;
+    font-size: 36px;
+}
+#add-flight-link{
+    background-color: var(--pink-color);
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    transition: .3s;
+}
+#add-flight-link:hover{
+    background-color: var(--pink-hover);
+    box-shadow: 0px 0px 10px 0px var(--pink-light);
+}
+#admin-flights-list{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.admin-seats-number{
+    position: absolute;
+    right: 22px;
+    top: 60px;
+}
+.admin-classes{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 15px;
+    width: 220px;
+}
+.class-seats-info{
+    display: flex;
+    justify-content: space-between;
+}
+.seats-left{
+    font-size: 18px;
+    text-align: center;    
+}

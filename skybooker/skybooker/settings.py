@@ -30,7 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = reverse_lazy('main:profile')
+LOGIN_REDIRECT_URL = reverse_lazy('main:index')
 LOGOUT_REDIRECT_URL = reverse_lazy('main:profile')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
