@@ -14,4 +14,5 @@ urlpatterns = [
     path('create-flight/', create_flight, name='create_flight'),
     path('create-airport/', create_airport, name='create_airport'),
     path('flights/', FlightListView.as_view(), name='flight_list'),
+    path('flights/<int:flight_id>/edit/', views.flight_info_and_edit, name='flight_info_edit'),
 ]

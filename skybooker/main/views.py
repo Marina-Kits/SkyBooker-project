@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 
 from .models import Passenger, Airport, Tickets
 from .models import Flight
-from .forms import FlightForm
+from .forms import FlightForm, FlightUpdateForm
 from django.views.generic import ListView, CreateView
 from django.shortcuts import render, redirect
 from .forms import FlightForm, AirportForm
@@ -119,10 +119,23 @@ def create_airport(request):
             airport_name = request.POST.get('name')
             existing_airport = Airport.objects.filter(name=airport_name).exists()
             if existing_airport:
-                return render(request, 'main/airport_create.html', {'airport_form': airport_form, 'error_message': 'Airport with the same name already exists'})
+                return render(request, 'main/airport_create.html', {'airport_form': airport_form, 'error_message': 'Аэропорт с таким названием уже существует'})
             else:
                 airport = airport_form.save()
                 return redirect('main:create_flight')
     else:
         airport_form = AirportForm()
     return render(request, 'main/airport_create.html', {'airport_form': airport_form})
+
+
+@admin_required
+def flight_info_and_edit(request, flight_id):
+    flight = get_object_or_404(Flight, id=flight_id)
+    if request.method == 'POST':
+        form = FlightUpdateForm(request.POST, instance=flight)
+        if form.is_valid():
+            form.save()
+            return redirect('main:flight_list')
+    else:
+        form = FlightUpdateForm(instance=flight)
+    return render(request, 'main/flight_info_edit.html', {'flight': flight, 'form': form})

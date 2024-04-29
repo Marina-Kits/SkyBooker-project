@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import SelectDateWidget, DateTimeInput
 
-from .models import Flight, FlightClassInfo, Airport
+from .models import Flight, FlightClassInfo, Airport, Tickets
 
 
 class FlightForm(forms.ModelForm):
@@ -36,3 +36,54 @@ class AirportForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['name'].label = 'Название'
         self.fields['city'].label = 'Город'
+
+
+class FlightUpdateForm(forms.ModelForm):
+    departure_time = forms.DateTimeField(label='Время отправления')
+    arrival_time = forms.DateTimeField(label='Время прибытия')
+
+    economy_ticket_price = forms.DecimalField(label='Цена билета')
+    economy_luggage_price = forms.DecimalField(label='Цена багажа')
+
+    comfort_ticket_price = forms.DecimalField(label='Цена билета')
+    comfort_luggage_price = forms.DecimalField(label='Цена багажа')
+
+    business_ticket_price = forms.DecimalField(label='Цена билета')
+    business_luggage_price = forms.DecimalField(label='Цена багажа')
+
+    first_class_ticket_price = forms.DecimalField(label='Цена билета')
+    first_class_luggage_price = forms.DecimalField(label='Цена багажа')
+
+    class Meta:
+        model = Flight
+        fields = ['departure_time', 'arrival_time']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance:
+            for service_class, _ in Tickets.CLASS_CHOICES:
+                try:
+                    flight_class_info = self.instance.flightclassinfo_set.get(service_class=service_class)
+                    self.fields[f'{service_class}_ticket_price'].initial = flight_class_info.ticket_price
+                    self.fields[f'{service_class}_luggage_price'].initial = flight_class_info.luggage_price
+                except FlightClassInfo.DoesNotExist:
+                    pass
+
+    def save(self, commit=True):
+        flight = super().save(commit=False)
+        for service_class, _ in Tickets.CLASS_CHOICES:
+            try:
+                flight_class_info = flight.flightclassinfo_set.get(service_class=service_class)
+                flight_class_info.ticket_price = self.cleaned_data[f'{service_class}_ticket_price']
+                flight_class_info.luggage_price = self.cleaned_data[f'{service_class}_luggage_price']
+                flight_class_info.save()
+            except FlightClassInfo.DoesNotExist:
+                FlightClassInfo.objects.create(
+                    flight=flight,
+                    service_class=service_class,
+                    ticket_price=self.cleaned_data[f'{service_class}_ticket_price'],
+                    luggage_price=self.cleaned_data[f'{service_class}_luggage_price']
+                )
+        if commit:
+            flight.save()
+        return flight

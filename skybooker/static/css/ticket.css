@@ -81,10 +81,21 @@
     position: absolute;
     right: 43px;
     bottom: 20px;
+    width: 155px;
+    height: 40px;
+    background-color: var(--violet-light);
+    padding: 8px;
+    padding-bottom: 12px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 10px;
+    transition: .3s;
+    font-size: 18px;
+}
+/*временная штука*/
+.buy-ticket{
     width: 175px;
     height: 60px;
-    background-color: var(--violet-light);
-    padding: 10px;
 }
 .buy-ticket:hover,
 .open-flight-info:hover{

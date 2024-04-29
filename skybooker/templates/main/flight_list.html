@@ -40,7 +40,7 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                        <button class="open-flight-info">Открыть информацию</button>
+                            <a href="{% url 'main:flight_info_edit' flight.id %}" class="open-flight-info">Открыть информацию</a>
                     </div>
                 </li>
             {% endfor %}
