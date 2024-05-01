@@ -1,0 +1,89 @@
+{% extends 'main/head-template.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/flight-airport-create.css' %}">
+{% endblock %}
+{% block title %}Информация о рейсе{% endblock %}
+{% block content %}
+    {% include 'main/header.html' %}
+    <section id="main-content">
+        <h1>Информация о рейсе</h1>
+        <h2>Основная информация</h2>
+        <div id="flight-main-info">
+            <div class="flight-info-container">
+                <p>Город отправления:</p>
+                <p class="flight-info-value">{{ flight.departure_airport.city }}</p>
+            </div>
+            <div class="flight-info-container">
+                <p>Аэропорт отправления:</p>
+                <p class="flight-info-value">{{ flight.departure_airport.name }}</p>
+            </div>
+            <div class="flight-info-container">
+                <p>Город прибытия:</p>
+                <p class="flight-info-value">{{ flight.arrival_airport.city }}</p>
+            </div>
+            <div class="flight-info-container">
+                <p>Аэропорт прибытия:</p>
+                <p class="flight-info-value">{{ flight.arrival_airport.name }}</p>
+            </div>
+            <h3>Количество оставшихся мест</h3>
+            <ul id="remaining-seats-number">
+                {% for flight_class_info in flight.flightclassinfo_set.all %}
+                    <li>
+                        <p>{{ flight_class_info.get_service_class_display }}:</p>
+                        <p class="flight-info-value">{{ flight_class_info.seats_number }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h2>Изменить рейс</h2>
+        <form method="post" id="edit-flight-form">
+            {% csrf_token %}
+            <p>
+                {{ form.departure_time.label_tag }}
+                {{ form.departure_time }}
+            </p>
+            <p>
+                {{ form.arrival_time.label_tag }}
+                {{ form.arrival_time }}
+            </p>
+            <h3>Эконом класс</h3>
+            <p>
+                {{ form.economy_ticket_price.label_tag }}
+                {{ form.economy_ticket_price }}
+            </p>
+            <p>
+                {{ form.economy_luggage_price.label_tag }}
+                {{ form.economy_luggage_price }}
+            </p>
+            <h3>Комфорт класс</h3>
+            <p>
+                {{ form.comfort_ticket_price.label_tag }}
+                {{ form.comfort_ticket_price }}
+            </p>
+            <p>
+                {{ form.comfort_luggage_price.label_tag }}
+                {{ form.comfort_luggage_price }}
+            </p>
+            <h3>Бизнес класс</h3>
+            <p>
+                {{ form.business_ticket_price.label_tag }}
+                {{ form.business_ticket_price }}
+            </p>
+            <p>
+                {{ form.business_luggage_price.label_tag }}
+                {{ form.business_luggage_price }}
+            </p>
+            <h3>Первый класс</h3>
+            <p>
+                {{ form.first_class_ticket_price.label_tag }}
+                {{ form.first_class_ticket_price }}
+            </p>
+            <p>
+                {{ form.first_class_luggage_price.label_tag }}
+                {{ form.first_class_luggage_price }}
+            </p>
+            <button type="submit">Сохранить</button>
+        </form>
+    </section>
+{% endblock %}

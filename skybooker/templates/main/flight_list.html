@@ -1,0 +1,50 @@
+{% extends 'main/head-template.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/admin-flights.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ticket.css' %}">
+{% endblock %}
+{% block title %}Список рейсов{% endblock %}
+{% block content %}
+    {% include 'main/header.html' %}
+    <div id="main-content">
+        <h1>Список рейсов</h1>
+        <ul id="admin-flights-list">
+            {% for flight in object_list %}
+                <li class="admin-flight-card">
+                    <div class="ticket-card">
+                        <p class="ticket-airline">Авиакомпания Smartavia</p>
+                        <div class="ticket-time-info">
+                            <div class="ticket-departure-info">
+                                <span>Отправление</span>
+                                <p class="ticket-time">{{ flight.departure_time|time:"H:i" }}</p>
+                                <p class="ticket-city-date">{{ flight.departure_airport.city }}<br>{{ flight.departure_time|date:"d.m" }}</p>
+                            </div>
+                            <div class="plane-container">
+                                <img src="{% static 'img/airplane.svg' %}" width="40px">
+                            </div>
+                            <div class="ticket-arrival-info">
+                                <span>Прибытие</span>
+                                <p class="ticket-time">{{ flight.arrival_time|time:"H:i" }}</p>
+                                <p class="ticket-city-date">{{ flight.arrival_airport.city }}<br>{{ flight.arrival_time|date:"d.m" }}</p>
+                            </div>
+                        </div>
+                        <div class="admin-seats-number">
+                            <ul class="admin-classes">
+                                <p class="seats-left">Осталось мест</p>                                
+                                {% for flight_class_info in flight.flightclassinfo_set.all %}
+                                    <li class="class-seats-info">
+                                        <p>{{ flight_class_info.get_service_class_display }}</p>
+                                        <p>{{ flight_class_info.seats_number }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                            <a href="{% url 'main:flight_info_edit' flight.id %}" class="open-flight-info">Открыть информацию</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'main:create_flight' %}" id="add-flight-link">Добавить рейс</a>
+    </div>
+{% endblock %}

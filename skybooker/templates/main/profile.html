@@ -52,7 +52,7 @@
                 </ul>
                 <button type="submit">Добавить пассажира</button>
             </form>
-            <ul id="profile-passengers-list">
+            <ul id="profile-passengers-list" style="display: none;">
                 {% for passenger in user.passengers.all %}
                     <li class="profile-passenger-info">{% include 'main/passenger-card.html' %}</li>
                 {% empty %}
@@ -93,7 +93,7 @@
         $(document).ready(function() {
         $(document).on('click', '.delete-passenger-button', function() {
             var passengerId = $(this).data('passenger-id');
-            if (confirm('Are you sure you want to delete this passenger?')) {
+            if (confirm('Удалить пассажира?')) {
                 $.ajax({
                     url: '/delete-passenger/' + passengerId + '/',
                     type: 'POST',

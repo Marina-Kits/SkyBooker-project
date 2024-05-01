@@ -55,3 +55,14 @@ button{
     font-size: 18px;
     transition: .3s;
 }
+#flights-button{
+    background-color: var(--violet-color);
+    padding: 15px;
+    border-radius: 10px;
+    transition: .3s;
+    font-size: 18px;
+}
+#flights-button:hover{
+    background-color: var(--violet-hover);
+    box-shadow: 0px 0px 10px 0px rgba(198, 175, 238, .7);
+}
