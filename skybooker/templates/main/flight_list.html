@@ -9,6 +9,7 @@
     {% include 'main/header.html' %}
     <div id="main-content">
         <h1>Список рейсов</h1>
+        <a href="{% url 'main:create_flight' %}" id="add-flight-link">Добавить рейс</a>
         <ul id="admin-flights-list">
             {% for flight in object_list %}
                 <li class="admin-flight-card">
@@ -45,6 +46,5 @@
                 </li>
             {% endfor %}
         </ul>
-        <a href="{% url 'main:create_flight' %}" id="add-flight-link">Добавить рейс</a>
     </div>
 {% endblock %}
