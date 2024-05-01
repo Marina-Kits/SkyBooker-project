@@ -2,33 +2,34 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/ticket.css' %}">
 </head>
-<div class="ticket-card">
-    <p class="ticket-airline">Авиакомпания Smartavia</p>
-    <div class="ticket-time-info">
-        <div class="ticket-departure-info">
-            <span>Отправление</span>
-            <p class="ticket-time">7:15</p>
-            <p class="ticket-city-date">Екатеринбург<br>25.04</p>
+
+    <div class="ticket-card">
+        <p class="ticket-airline">Авиакомпания {{ flight.airline }}</p>
+        <div class="ticket-time-info">
+            <div class="ticket-departure-info">
+                <span>Отправление</span>
+                <p class="ticket-time">{{ flight.departure_time|time:"H:i" }}</p>
+                <p class="ticket-city-date">{{ flight.departure_airport.city }}<br>{{ flight.departure_time|date:"d.m" }}</p>
+            </div>
+            <div class="ticket-travel-time-container">
+                <span>Время в пути</span>
+                <p class="ticket-time">2 ч 50 м</p>
+            </div>
+            <div class="ticket-arrival-info">
+                <span>Прибытие</span>
+                <p class="ticket-time">{{ flight.arrival_time|time:"H:i" }}</p>
+                <p class="ticket-city-date">{{ flight.arrival_airport.city }}<br>{{ flight.arrival_time|date:"d.m" }}</p>
+            </div>
         </div>
-        <div class="ticket-travel-time-container">
-            <span>Время в пути</span>
-            <p class="ticket-time">2 ч 50 м</p>
+        <div class="ticket-price-info">
+            <div class="ticket-price">
+                <span>Цена</span>
+                <p class="ticket-price-value">{{ flight_class_info.ticket_price }}</p>
+            </div>
+            <div class="ticket-luggage-price">
+                <span>Багаж</span>
+                <p class="ticket-price-value">{{ flight_class_info.luggage_price }}</p>
+            </div>
         </div>
-        <div class="ticket-arrival-info">
-            <span>Прибытие</span>
-            <p class="ticket-time">8:05</p>
-            <p class="ticket-city-date">Санкт-Петербург<br>25.04</p>
-        </div>
+        <button class="buy-ticket">Приобрести билет</button>
     </div>
-    <div class="ticket-price-info">
-        <div class="ticket-price">
-            <span>Цена</span>
-            <p class="ticket-price-value">12838</p>
-        </div>
-        <div class="ticket-luggage-price">
-            <span>Багаж</span>
-            <p class="ticket-price-value">2590</p>
-        </div>
-    </div>
-    <button class="buy-ticket">Приобрести билет</button>
-</div>

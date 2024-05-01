@@ -10,69 +10,76 @@
     {% include 'main/header.html' %}
     <section id="main-content">
         <div id="flights-search">
-            <div class="search-container">
-                <input type="search" id="from-input" placeholder="Откуда">
-                <ul class="cities-list" id="from-cities-list">
-                    <li>Москва</li>
-                    <li>Питер</li>
-                    <li>Екб</li>
-                    <li>Хз</li>
-                    <li>Какие еще города есть</li>
-                    <li>Лондон</li>
-                    <li>Паришь</li>
-                    <li>9 общага</li>
-                    <li>Хз х2</li>
-                    <li>Монетка</li>
-                    <li>ртф чемпион</li>
-                    <li>я больше нигде не была</li>
-                    <li>в париже и лондоне тоже не была так-то</li>
-                </ul>
-            </div>
-            
-            <div class="search-container">
-                <input type="search" id="to-input" placeholder="Куда">
-                <ul class="cities-list" id="to-cities-list">
-                    <li>Москва</li>
-                    <li>Питер</li>
-                    <li>Екб</li>
-                    <li>Хз</li>
-                    <li>Какие еще города есть</li>
-                    <li>Лондон</li>
-                    <li>Паришь</li>
-                    <li>9 общага</li>
-                    <li>Хз х2</li>
-                    <li>Монетка</li>
-                    <li>ртф чемпион</li>
-                    <li>я больше нигде не была</li>
-                    <li>в париже и лондоне тоже не была так-то</li>
-                </ul>
-            </div>
-            <input type="text" id="datepicker" placeholder="Когда">
-            <div id="passengers-number-choice">
-                <div class="dropdown-button">1 пассажир</div>
-                <ul class="dropdown-list">
-                    <li>1 пассажир</li>
-                    <li>2 пассажира</li>
-                    <li>3 пассажира</li>
-                    <li>4 пассажира</li>
-                    <li>5 пассажиров</li>
-                    <li>6 пассажиров</li>
-                    <li>7 пассажиров</li>
-                    <li>8 пассажиров</li>
-                    <li>9 пассажиров</li>
-                    <li>10 пассажиров</li>
-                </ul>
-            </div>
-            <div id="service-class-choice">
-                <div class="dropdown-button">Эконом</div>
-                <ul class="dropdown-list">
-                    <li>Эконом</li>
-                    <li>Комфорт</li>
-                    <li>Бизнес</li>
-                    <li>Первый класс</li>
-                </ul>
-            </div>
-            <button id="find-tickets">Найти билеты</button>
+            <form id="flights-search-form" method="GET" action="{% url 'main:flight_search' %}">
+                <div class="search-container">
+                    <input type="search" id="from-input" name="departure_city" placeholder="Откуда">
+                    <ul class="cities-list" id="from-cities-list">
+                        <li>Москва</li>
+                        <li>Питер</li>
+                        <li>Екб</li>
+                        <li>Хз</li>
+                        <li>Какие еще города есть</li>
+                        <li>Лондон</li>
+                        <li>Паришь</li>
+                        <li>9 общага</li>
+                        <li>Хз х2</li>
+                        <li>Монетка</li>
+                        <li>ртф чемпион</li>
+                        <li>я больше нигде не была</li>
+                        <li>в париже и лондоне тоже не была так-то</li>
+                    </ul>
+                </div>
+
+                <div class="search-container">
+                    <input type="search" id="to-input" name="arrival_city" placeholder="Куда">
+                    <ul class="cities-list" id="to-cities-list">
+                        <li>Москва</li>
+                        <li>Питер</li>
+                        <li>Екб</li>
+                        <li>Хз</li>
+                        <li>Какие еще города есть</li>
+                        <li>Лондон</li>
+                        <li>Паришь</li>
+                        <li>9 общага</li>
+                        <li>Хз х2</li>
+                        <li>Монетка</li>
+                        <li>ртф чемпион</li>
+                        <li>я больше нигде не была</li>
+                        <li>в париже и лондоне тоже не была так-то</li>
+                    </ul>
+                </div>
+
+                <input type="text" id="datepicker" name="departure_date" placeholder="Когда">
+                <div id="passengers-number-choice">
+                    <div class="dropdown-button">1 пассажир</div>
+                    <ul class="dropdown-list">
+                        <li data-value="1">1 пассажир</li>
+                        <li data-value="2">2 пассажира</li>
+                        <li data-value="3">3 пассажира</li>
+                        <li data-value="4">4 пассажира</li>
+                        <li data-value="5">5 пассажиров</li>
+                        <li data-value="6">6 пассажиров</li>
+                        <li data-value="7">7 пассажиров</li>
+                        <li data-value="8">8 пассажиров</li>
+                        <li data-value="9">9 пассажиров</li>
+                        <li data-value="10">10 пассажиров</li>
+                    </ul>
+                    <input type="hidden" id="passengers-number-input" name="number_of_passengers">
+                </div>
+
+                <div id="service-class-choice">
+                    <div class="dropdown-button">Эконом</div>
+                    <ul class="dropdown-list">
+                        <li data-value="economy">Эконом</li>
+                        <li data-value="comfort">Комфорт</li>
+                        <li data-value="business">Бизнес</li>
+                        <li data-value="first_class">Первый класс</li>
+                    </ul>
+                    <input type="hidden" id="service-class-input" name="service_class">
+                </div>
+
+                <button id="find-tickets" type="submit">Найти билеты</button>
+        </form>
         </div>
         <div id="search-filters">
             <p id="filters-label">Фильтры поиска</p>
@@ -118,10 +125,12 @@
             </ul>
         </div>
         <section id="tickets-list">
-            <!-- здесь через цикл отображаются билеты, эти по фану здесь, удали -->
-            {% include 'main/ticket.html' %}
-            {% include 'main/ticket.html' %}
-            {% include 'main/ticket.html' %}
+            {% for flight in flights %}
+                {% include 'main/ticket.html' with flight=flight %}
+                {% for flight_class_info in flight.flightclassinfo_set.all %}
+                    {% include 'main/ticket.html' with flight=flight flight_class_info=flight_class_info %}
+                {% endfor %}
+            {% endfor %}
         </section>
     </section>
     <script>
@@ -179,5 +188,53 @@
         generateCheckboxes(departureAirports, 'departure-filters');
         generateCheckboxes(arrivalAirports, 'arrival-filters');
 
+    </script>
+    <script>
+        const fromInput = document.getElementById('from-input');
+        const fromCitiesList = document.getElementById('from-cities-list');
+
+        fromCitiesList.addEventListener('click', function(event) {
+            if (event.target.tagName === 'LI') {
+                fromInput.value = event.target.textContent;
+                fromCitiesList.classList.remove('show');
+                }
+            });
+    </script>
+    <script>
+        const toInput = document.getElementById('to-input');
+        const toCitiesList = document.getElementById('to-cities-list');
+
+        toCitiesList.addEventListener('click', function(event) {
+            if (event.target.tagName === 'LI') {
+                toInput.value = event.target.textContent;
+                toCitiesList.classList.remove('show');
+                }
+            });
+    </script>
+    <script>
+        const passengersNumberButton = document.querySelector('#passengers-number-choice .dropdown-button');
+        const passengersNumberList = document.querySelector('#passengers-number-choice .dropdown-list');
+        const passengersNumberInput = document.getElementById('passengers-number-input');
+
+        passengersNumberList.addEventListener('click', function(event) {
+            if (event.target.tagName === 'LI') {
+                passengersNumberButton.textContent = event.target.textContent;
+                passengersNumberInput.value = event.target.dataset.value;
+                passengersNumberList.classList.remove('show');
+            }
+        });
+    </script>
+    <script>
+        const serviceClassButton = document.querySelector('#service-class-choice .dropdown-button');
+        const serviceClassList = document.querySelector('#service-class-choice .dropdown-list');
+        const serviceClassInput = document.getElementById('service-class-input');
+
+        serviceClassList.addEventListener('click', function(event) {
+            if (event.target.tagName === 'LI') {
+                serviceClassButton.textContent = event.target.textContent;
+                serviceClassInput.value = event.target.dataset.value;
+                serviceClassList.classList.remove('show');
+            }
+        });
     </script>
 {% endblock %}

@@ -54,3 +54,4 @@ class FlightClassInfo(models.Model):
 
     def __str__(self):
         return f"{self.flight} - {self.service_class}"
+
