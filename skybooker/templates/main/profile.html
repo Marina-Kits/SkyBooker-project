@@ -27,7 +27,7 @@
                 <button id="open-passengers-list">Пассажиры</button>
                 <button id="profile-add-passenger"><img src="{% static 'img/add-passenger.svg' %}"></button>
             </div>
-            <form action="{% url 'main:add_passenger' %}" id="add-passenger-form" method="post">
+            <form action="{% url 'main:add_passenger' %}" id="add-passenger-form" method="post" style="display: none;">
                 {% csrf_token %}
                 <ul class="passenger-characteristics">
                     <li class="passenger-characteristic">
