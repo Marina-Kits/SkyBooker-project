@@ -9,13 +9,13 @@ button{
     flex-direction: column;
     align-items: center;
 }
-#flights-search{
+#flights-search-form{
     margin-top: 211px;
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
 }
-#flights-search > *{
+#flights-search-form > *{
     width: 170px;
     font-size: 20px;
 }

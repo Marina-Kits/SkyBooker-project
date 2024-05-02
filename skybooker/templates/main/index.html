@@ -9,78 +9,76 @@
 {% block content %}
     {% include 'main/header.html' %}
     <section id="main-content">
-        <div id="flights-search">
-            <form id="flights-search-form" method="GET" action="{% url 'main:flight_search' %}">
-                <div class="search-container">
-                    <input type="search" id="from-input" name="departure_city" placeholder="Откуда">
-                    <ul class="cities-list" id="from-cities-list">
-                        <li>Москва</li>
-                        <li>Питер</li>
-                        <li>Екб</li>
-                        <li>Хз</li>
-                        <li>Какие еще города есть</li>
-                        <li>Лондон</li>
-                        <li>Паришь</li>
-                        <li>9 общага</li>
-                        <li>Хз х2</li>
-                        <li>Монетка</li>
-                        <li>ртф чемпион</li>
-                        <li>я больше нигде не была</li>
-                        <li>в париже и лондоне тоже не была так-то</li>
-                    </ul>
-                </div>
+        <form id="flights-search-form" method="GET" action="{% url 'main:flight_search' %}">
+            <div class="search-container">
+                <input type="search" id="from-input" name="departure_city" placeholder="Откуда">
+                <ul class="cities-list" id="from-cities-list">
+                    <li>Москва</li>
+                    <li>Питер</li>
+                    <li>Екб</li>
+                    <li>Хз</li>
+                    <li>Какие еще города есть</li>
+                    <li>Лондон</li>
+                    <li>Паришь</li>
+                    <li>9 общага</li>
+                    <li>Хз х2</li>
+                    <li>Монетка</li>
+                    <li>ртф чемпион</li>
+                    <li>я больше нигде не была</li>
+                    <li>в париже и лондоне тоже не была так-то</li>
+                </ul>
+            </div>
 
-                <div class="search-container">
-                    <input type="search" id="to-input" name="arrival_city" placeholder="Куда">
-                    <ul class="cities-list" id="to-cities-list">
-                        <li>Москва</li>
-                        <li>Питер</li>
-                        <li>Екб</li>
-                        <li>Хз</li>
-                        <li>Какие еще города есть</li>
-                        <li>Лондон</li>
-                        <li>Паришь</li>
-                        <li>9 общага</li>
-                        <li>Хз х2</li>
-                        <li>Монетка</li>
-                        <li>ртф чемпион</li>
-                        <li>я больше нигде не была</li>
-                        <li>в париже и лондоне тоже не была так-то</li>
-                    </ul>
-                </div>
+            <div class="search-container">
+                <input type="search" id="to-input" name="arrival_city" placeholder="Куда">
+                <ul class="cities-list" id="to-cities-list">
+                    <li>Москва</li>
+                    <li>Питер</li>
+                    <li>Екб</li>
+                    <li>Хз</li>
+                    <li>Какие еще города есть</li>
+                    <li>Лондон</li>
+                    <li>Паришь</li>
+                    <li>9 общага</li>
+                    <li>Хз х2</li>
+                    <li>Монетка</li>
+                    <li>ртф чемпион</li>
+                    <li>я больше нигде не была</li>
+                    <li>в париже и лондоне тоже не была так-то</li>
+                </ul>
+            </div>
 
-                <input type="text" id="datepicker" name="departure_date" placeholder="Когда">
-                <div id="passengers-number-choice">
-                    <div class="dropdown-button">1 пассажир</div>
-                    <ul class="dropdown-list">
-                        <li data-value="1">1 пассажир</li>
-                        <li data-value="2">2 пассажира</li>
-                        <li data-value="3">3 пассажира</li>
-                        <li data-value="4">4 пассажира</li>
-                        <li data-value="5">5 пассажиров</li>
-                        <li data-value="6">6 пассажиров</li>
-                        <li data-value="7">7 пассажиров</li>
-                        <li data-value="8">8 пассажиров</li>
-                        <li data-value="9">9 пассажиров</li>
-                        <li data-value="10">10 пассажиров</li>
-                    </ul>
-                    <input type="hidden" id="passengers-number-input" name="number_of_passengers">
-                </div>
+            <input type="text" id="datepicker" name="departure_date" placeholder="Когда">
+            <div id="passengers-number-choice">
+                <div class="dropdown-button">1 пассажир</div>
+                <ul class="dropdown-list">
+                    <li data-value="1">1 пассажир</li>
+                    <li data-value="2">2 пассажира</li>
+                    <li data-value="3">3 пассажира</li>
+                    <li data-value="4">4 пассажира</li>
+                    <li data-value="5">5 пассажиров</li>
+                    <li data-value="6">6 пассажиров</li>
+                    <li data-value="7">7 пассажиров</li>
+                    <li data-value="8">8 пассажиров</li>
+                    <li data-value="9">9 пассажиров</li>
+                    <li data-value="10">10 пассажиров</li>
+                </ul>
+                <input type="hidden" id="passengers-number-input" name="number_of_passengers">
+            </div>
 
-                <div id="service-class-choice">
-                    <div class="dropdown-button">Эконом</div>
-                    <ul class="dropdown-list">
-                        <li data-value="economy">Эконом</li>
-                        <li data-value="comfort">Комфорт</li>
-                        <li data-value="business">Бизнес</li>
-                        <li data-value="first_class">Первый класс</li>
-                    </ul>
-                    <input type="hidden" id="service-class-input" name="service_class">
-                </div>
+            <div id="service-class-choice">
+                <div class="dropdown-button">Эконом</div>
+                <ul class="dropdown-list">
+                    <li data-value="economy">Эконом</li>
+                    <li data-value="comfort">Комфорт</li>
+                    <li data-value="business">Бизнес</li>
+                    <li data-value="first_class">Первый класс</li>
+                </ul>
+                <input type="hidden" id="service-class-input" name="service_class">
+            </div>
 
-                <button id="find-tickets" type="submit">Найти билеты</button>
+            <button id="find-tickets" type="submit">Найти билеты</button>
         </form>
-        </div>
         <div id="search-filters">
             <p id="filters-label">Фильтры поиска</p>
             <ul id="filter-list">
