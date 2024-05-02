@@ -11,9 +11,8 @@
                 <p class="ticket-time">{{ flight.departure_time|time:"H:i" }}</p>
                 <p class="ticket-city-date">{{ flight.departure_airport.city }}<br>{{ flight.departure_time|date:"d.m" }}</p>
             </div>
-            <div class="ticket-travel-time-container">
-                <span>Время в пути</span>
-                <p class="ticket-time">2 ч 50 м</p>
+            <div class="plane-container">
+                <img src="{% static 'img/airplane.svg' %}" width="40px">
             </div>
             <div class="ticket-arrival-info">
                 <span>Прибытие</span>
