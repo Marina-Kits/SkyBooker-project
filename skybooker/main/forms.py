@@ -5,6 +5,7 @@ from .models import Flight, FlightClassInfo, Airport, Tickets
 
 
 class FlightForm(forms.ModelForm):
+    airline = forms.CharField(label='Авиакомпания', max_length=100)
     departure_airport = forms.ModelChoiceField(queryset=Airport.objects.all(), label='Аэропорт отправления')
     arrival_airport = forms.ModelChoiceField(queryset=Airport.objects.all(), label='Аэропорт прибытия')
     departure_time = forms.DateTimeField(label='Время отправления', input_formats=['%d-%m-%Y %H:%M'], widget=DateTimeInput(attrs={'type': 'datetime-local'}))
@@ -24,7 +25,7 @@ class FlightForm(forms.ModelForm):
 
     class Meta:
         model = Flight
-        fields = ['departure_airport', 'arrival_airport', 'departure_time', 'arrival_time']
+        fields = ['departure_airport', 'arrival_airport', 'departure_time', 'arrival_time', 'airline']
 
 
 class AirportForm(forms.ModelForm):

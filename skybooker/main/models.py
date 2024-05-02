@@ -37,6 +37,7 @@ class Airport(models.Model):
 
 
 class Flight(models.Model):
+    airline = models.CharField(max_length=100, default='Unknown Airline')
     departure_airport = models.ForeignKey(Airport, related_name='departures', on_delete=models.CASCADE)
     arrival_airport = models.ForeignKey(Airport, related_name='arrivals', on_delete=models.CASCADE)
     departure_time = models.DateTimeField()

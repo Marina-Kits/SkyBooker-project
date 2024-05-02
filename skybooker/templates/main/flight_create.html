@@ -11,6 +11,8 @@
         <form method="post">
             {% csrf_token %}
             <h2>Основная информация:</h2>
+            <p><label for="id_airline">Авиакомпания:</label>
+            {{ flight_form.airline }}</p>
             <p><label for="id_departure_airport">Аэропорт отправления:</label>
             {{ flight_form.departure_airport }}</p>
             <p><label for="id_arrival_airport">Аэропорт прибытия:</label>

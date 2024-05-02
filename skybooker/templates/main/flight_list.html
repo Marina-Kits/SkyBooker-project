@@ -14,7 +14,7 @@
             {% for flight in object_list %}
                 <li class="admin-flight-card">
                     <div class="ticket-card">
-                        <p class="ticket-airline">Авиакомпания Smartavia</p>
+                        <p class="ticket-airline">Авиакомпания {{ flight.airline }}</p>
                         <div class="ticket-time-info">
                             <div class="ticket-departure-info">
                                 <span>Отправление</span>
