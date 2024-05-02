@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import SelectDateWidget, DateTimeInput
 
-from .models import Flight, FlightClassInfo, Airport, Tickets
+from .models import Flight, FlightClassInfo, Airport, Ticket
 
 
 class FlightForm(forms.ModelForm):
@@ -62,7 +62,7 @@ class FlightUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance:
-            for service_class, _ in Tickets.CLASS_CHOICES:
+            for service_class, _ in Ticket.CLASS_CHOICES:
                 try:
                     flight_class_info = self.instance.flightclassinfo_set.get(service_class=service_class)
                     self.fields[f'{service_class}_ticket_price'].initial = flight_class_info.ticket_price
@@ -72,7 +72,7 @@ class FlightUpdateForm(forms.ModelForm):
 
     def save(self, commit=True):
         flight = super().save(commit=False)
-        for service_class, _ in Tickets.CLASS_CHOICES:
+        for service_class, _ in Ticket.CLASS_CHOICES:
             try:
                 flight_class_info = flight.flightclassinfo_set.get(service_class=service_class)
                 flight_class_info.ticket_price = self.cleaned_data[f'{service_class}_ticket_price']

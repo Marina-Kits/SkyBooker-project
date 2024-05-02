@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from .models import Passenger, Flight, FlightClassInfo, Airport
 from django import template
 from django.utils.decorators import method_decorator
-from .models import Passenger, Airport, Tickets
+from .models import Passenger, Airport, Ticket
 from .models import Flight
 from .forms import FlightForm, FlightUpdateForm
 from django.views.generic import ListView, CreateView
@@ -18,7 +18,8 @@ from datetime import datetime
 
 # Create your views here.
 def index(request):
-    return render(request, 'main/index.html')
+    flights_temp = Flight.objects.all()
+    return render(request, 'main/index.html', {'flights_temp': flights_temp})
 
 @login_required
 def profile_view(request):
@@ -151,7 +152,7 @@ def create_flight(request):
         flight_form = FlightForm(request.POST)
         if flight_form.is_valid():
             flight = flight_form.save()
-            for service_class, _ in Tickets.CLASS_CHOICES:
+            for service_class, _ in Ticket.CLASS_CHOICES:
                 FlightClassInfo.objects.create(
                     flight=flight,
                     service_class=service_class,
