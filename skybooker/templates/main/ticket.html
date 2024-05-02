@@ -29,5 +29,5 @@
                 <p class="ticket-price-value">{{ flight_class_info.luggage_price }}</p>
             </div>
         </div>
-        <button class="buy-ticket">Приобрести билет</button>
+        <a href="{% url 'main:book_ticket' flight.id %}" class="buy-ticket">Приобрести билет</a>
     </div>

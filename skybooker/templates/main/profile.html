@@ -53,8 +53,17 @@
                 <button type="submit">Добавить пассажира</button>
             </form>
             <ul id="profile-passengers-list" style="display: none;">
-                {% for passenger in user.passengers.all %}
-                    <li class="profile-passenger-info">{% include 'main/passenger-card.html' %}</li>
+                {% for passenger, tickets in passenger_tickets.items %}
+                    <li class="profile-passenger-info">
+                        {% include 'main/passenger-card.html' %}<h3>Tickets:</h3>
+                        <ul>
+                            {% for ticket in tickets %}
+                                <li>{{ ticket }}</li>
+                            {% empty %}
+                                <li>No tickets found.</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 {% empty %}
                     <li>No passengers added yet.</li>
                 {% endfor %}

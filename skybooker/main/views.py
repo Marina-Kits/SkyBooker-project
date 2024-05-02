@@ -16,14 +16,22 @@ from .forms import FlightForm, AirportForm
 from .models import FlightClassInfo
 from datetime import datetime
 
-# Create your views here.
+
 def index(request):
     flights_temp = Flight.objects.all()
     return render(request, 'main/index.html', {'flights_temp': flights_temp})
 
+
 @login_required
 def profile_view(request):
-    return render(request, 'main/profile.html')
+    user = request.user
+    passengers = user.passengers.all()
+    passenger_tickets = {}
+
+    for passenger in passengers:
+        tickets = Ticket.objects.filter(passenger=passenger)
+        passenger_tickets[passenger] = tickets
+    return render(request, 'main/profile.html', {'passenger_tickets': passenger_tickets})
 
 
 def add_passenger_view(request):
@@ -194,3 +202,53 @@ def flight_info_and_edit(request, flight_id):
     else:
         form = FlightUpdateForm(instance=flight)
     return render(request, 'main/flight_info_edit.html', {'flight': flight, 'form': form})
+
+
+def book_ticket(request, flight_id):
+    flight = get_object_or_404(Flight, id=flight_id)
+
+    if request.method == 'POST':
+        passengers_selected = request.POST.getlist('passengers')
+        class_choice = request.POST.get('class_choice')
+        luggage = request.POST.get('luggage', False) == 'on'
+
+        for passenger_id in passengers_selected:
+            passenger = Passenger.objects.get(id=passenger_id)
+            flight_class_info = FlightClassInfo.objects.get(flight=flight, service_class=class_choice)
+            ticket_price = flight_class_info.ticket_price
+            luggage_price = flight_class_info.luggage_price
+
+            ticket = Ticket.objects.create(
+                flight=flight,
+                passenger=passenger,
+                service_class=class_choice,
+                luggage=luggage,
+                price=ticket_price,
+                luggage_price=luggage_price,
+            )
+
+            flight_class_info.seats_number -= 1
+            flight_class_info.save()
+
+        return redirect('main:confirmation', passenger_ids=','.join(passengers_selected))
+
+    else:
+        passengers = request.user.passengers.all()
+        class_choices = Ticket.CLASS_CHOICES
+        return render(request, 'main/book_ticket.html', {'flight': flight, 'passengers': passengers, 'class_choices': class_choices})
+
+
+def confirmation(request, passenger_ids):
+    # Split the passenger_ids string into a list of integers
+    passenger_id_list = [int(id) for id in passenger_ids.split(',')]
+
+    if request.method == 'POST':
+        for passenger_id in passenger_id_list:
+            tickets = Ticket.objects.filter(passenger_id=passenger_id)
+            for ticket in tickets:
+                ticket.is_confirmed = True
+                ticket.save()
+
+        return redirect('main:index')
+    else:
+        return render(request, 'main/confirmation.html', {'passenger_ids': passenger_ids})

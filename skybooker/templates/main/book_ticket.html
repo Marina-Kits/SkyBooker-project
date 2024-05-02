@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Ticket</title>
+</head>
+<body>
+    <h1>Book Ticket</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="passengers">Passengers:</label><br>
+        {% for passenger in passengers %}
+            <input type="checkbox" name="passengers" value="{{ passenger.id }}" id="passenger_{{ passenger.id }}">
+            <label for="passenger_{{ passenger.id }}">{{ passenger.full_name }}</label><br>
+        {% endfor %}
+
+        <label for="class_choice">Class:</label>
+        <select name="class_choice" id="class_choice">
+            {% for choice in class_choices %}
+                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="luggage">Luggage:</label>
+        <input type="checkbox" name="luggage" id="luggage"><br>
+
+        <button type="submit">Book</button>
+    </form>
+</body>
+</html>

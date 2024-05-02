@@ -54,7 +54,7 @@ class Ticket(models.Model):
     is_confirmed = models.BooleanField(default=False)
 
     def calculate_price(self):
-        flight_class_info = FlightClassInfo.objects.get(flight=self.flight, service_class=self.flight_class)
+        flight_class_info = FlightClassInfo.objects.get(flight=self.flight, service_class=self.service_class)
         return flight_class_info.ticket_price, flight_class_info.luggage_price
 
     def save(self, *args, **kwargs):
