@@ -53,15 +53,6 @@ class Ticket(models.Model):
     booking_time = models.DateTimeField(default=timezone.now)
     is_confirmed = models.BooleanField(default=False)
 
-    def calculate_price(self):
-        flight_class_info = FlightClassInfo.objects.get(flight=self.flight, service_class=self.service_class)
-        return flight_class_info.ticket_price, flight_class_info.luggage_price
-
-    def save(self, *args, **kwargs):
-        if not self.price or not self.luggage_price:
-            self.price, self.luggage_price = self.calculate_price()
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return f'Билет до {self.flight} - {self.passenger}'
 

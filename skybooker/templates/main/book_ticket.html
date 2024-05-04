@@ -27,5 +27,9 @@
 
         <button type="submit">Book</button>
     </form>
+
+    {% if error_message %}
+        <p class="errors-notification">{{ error_message }}</p>
+    {% endif %}
 </body>
 </html>
