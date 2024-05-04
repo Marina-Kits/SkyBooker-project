@@ -18,5 +18,5 @@ urlpatterns = [
     path('flights/', FlightListView.as_view(), name='flight_list'),
     path('flights/<int:flight_id>/edit/', views.flight_info_and_edit, name='flight_info_edit'),
     path('book-ticket/<int:flight_id>/', views.book_ticket, name='book_ticket'),
-    path('confirmation/<str:passenger_ids>/', views.confirmation, name='confirmation'),
+    path('confirmation/<str:ticket_ids>/', views.confirmation, name='confirmation'),
 ]

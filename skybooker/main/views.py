@@ -194,6 +194,9 @@ def book_ticket(request, flight_id):
         class_choice = request.POST.get('class_choice')
         luggage = request.POST.get('luggage', False) == 'on'
 
+        # List to store created tickets
+        created_tickets = []
+
         for passenger_id in passengers_selected:
             passenger = Passenger.objects.get(id=passenger_id)
             flight_class_info = FlightClassInfo.objects.get(flight=flight, service_class=class_choice)
@@ -209,28 +212,31 @@ def book_ticket(request, flight_id):
                 luggage_price=luggage_price,
             )
 
+            # Add the created ticket to the list
+            created_tickets.append(ticket)
+
             flight_class_info.seats_number -= 1
             flight_class_info.save()
 
-        return redirect('main:confirmation', passenger_ids=','.join(passengers_selected))
+        # Pass the list of created tickets to the confirmation view
+        return redirect('main:confirmation', ticket_ids=','.join([str(ticket.id) for ticket in created_tickets]))
 
     else:
         passengers = request.user.passengers.all()
         class_choices = Ticket.CLASS_CHOICES
-        return render(request, 'main/book_ticket.html', {'flight': flight, 'passengers': passengers, 'class_choices': class_choices})
+        return render(request, 'main/book_ticket.html',
+                      {'flight': flight, 'passengers': passengers, 'class_choices': class_choices})
 
 
-def confirmation(request, passenger_ids):
-    # Split the passenger_ids string into a list of integers
-    passenger_id_list = [int(id) for id in passenger_ids.split(',')]
+def confirmation(request, ticket_ids):
+    ticket_id_list = [int(id) for id in ticket_ids.split(',')]
 
     if request.method == 'POST':
-        for passenger_id in passenger_id_list:
-            tickets = Ticket.objects.filter(passenger_id=passenger_id)
-            for ticket in tickets:
-                ticket.is_confirmed = True
-                ticket.save()
+        for ticket_id in ticket_id_list:
+            ticket = Ticket.objects.get(id=ticket_id)
+            ticket.is_confirmed = True
+            ticket.save()
 
         return redirect('main:index')
     else:
-        return render(request, 'main/confirmation.html', {'passenger_ids': passenger_ids})
+        return render(request, 'main/confirmation.html', {'ticket_ids': ticket_ids})
