@@ -63,7 +63,7 @@
                     <li data-value="9">9 пассажиров</li>
                     <li data-value="10">10 пассажиров</li>
                 </ul>
-                <input type="hidden" id="passengers-number-input" name="number_of_passengers">
+                <input type="hidden" id="passengers-number-input" name="number_of_passengers" value="1">
             </div>
 
             <div id="service-class-choice">
@@ -74,7 +74,7 @@
                     <li data-value="business">Бизнес</li>
                     <li data-value="first_class">Первый класс</li>
                 </ul>
-                <input type="hidden" id="service-class-input" name="service_class">
+                <input type="hidden" id="service-class-input" name="service_class" value="economy">
             </div>
 
             <button id="find-tickets" type="submit">Найти билеты</button>
@@ -123,12 +123,16 @@
             </ul>
         </div>
         <section id="tickets-list">
-            {{ Flight.objects.all }}
+            <!--
+
             {% for flight in flights_temp %}
                 {% include 'main/ticket.html' with flight=flight %}
             {% endfor %}
-
-
+            -->
+            <!--{{ Flight.objects.all }}
+            {% for flight in flights_temp %}
+                {% include 'main/ticket.html' with flight=flight %}
+            {% endfor %}-->
 
             <!--
             {% for flight in flights %}
@@ -137,7 +141,7 @@
                     {% include 'main/ticket.html' with flight=flight flight_class_info=flight_class_info %}
                 {% endfor %}
             {% endfor %}
-        -->
+            -->
         </section>
     </section>
     <script>

@@ -79,7 +79,7 @@ def flight_search(request):
         departure_city = request.GET.get('departure_city')
         arrival_city = request.GET.get('arrival_city')
         departure_date = request.GET.get('departure_date')
-        number_of_passengers = request.GET.get('number_of_passengers')
+        number_of_passengers = request.GET.get('number_of_passengers', 1)
         service_class = request.GET.get('service_class')
         flights = Flight.objects.filter(
             departure_airport__city=departure_city,
@@ -95,7 +95,7 @@ def flight_search(request):
                 seats_number__gte=number_of_passengers
             ).first()
             if flight_class_info:
-                filtered_flights.append((flight, flight_class_info))
+                filtered_flights.append((flight))
 
         context = {
             'flights': filtered_flights,
@@ -108,24 +108,6 @@ def flight_search(request):
 
         return render(request, 'main/index.html', context)
 
-
-def flight_view(request, flight_id):
-    flight = get_object_or_404(Flight, pk=flight_id)
-    service_class = request.session.get('service_class', 'economy')
-    flight_class_info = get_object_or_404(FlightClassInfo, flight=flight, service_class=service_class)
-
-    context = {
-        'flight': flight,
-        'flight_class_info': flight_class_info,
-    }
-
-    return render(request, 'main/ticket.html', context)
-
-register = template.Library()
-
-@register.filter
-def service_class(queryset, service_class):
-    return queryset.filter(service_class=service_class)
 
 def admin_required(view_func):
     def _wrapped_view(request, *args, **kwargs):
