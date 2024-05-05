@@ -13,38 +13,18 @@
             <div class="search-container">
                 <input type="search" id="from-input" name="departure_city" placeholder="Откуда">
                 <ul class="cities-list" id="from-cities-list">
-                    <li>Москва</li>
-                    <li>Питер</li>
-                    <li>Екб</li>
-                    <li>Хз</li>
-                    <li>Какие еще города есть</li>
-                    <li>Лондон</li>
-                    <li>Паришь</li>
-                    <li>9 общага</li>
-                    <li>Хз х2</li>
-                    <li>Монетка</li>
-                    <li>ртф чемпион</li>
-                    <li>я больше нигде не была</li>
-                    <li>в париже и лондоне тоже не была так-то</li>
+                    {% for city in cities %}
+                        <li>{{ city }}</li>
+                    {% endfor %}
                 </ul>
             </div>
 
             <div class="search-container">
                 <input type="search" id="to-input" name="arrival_city" placeholder="Куда">
                 <ul class="cities-list" id="to-cities-list">
-                    <li>Москва</li>
-                    <li>Питер</li>
-                    <li>Екб</li>
-                    <li>Хз</li>
-                    <li>Какие еще города есть</li>
-                    <li>Лондон</li>
-                    <li>Паришь</li>
-                    <li>9 общага</li>
-                    <li>Хз х2</li>
-                    <li>Монетка</li>
-                    <li>ртф чемпион</li>
-                    <li>я больше нигде не была</li>
-                    <li>в париже и лондоне тоже не была так-то</li>
+                    {% for city in cities %}
+                        <li>{{ city }}</li>
+                    {% endfor %}
                 </ul>
             </div>
 

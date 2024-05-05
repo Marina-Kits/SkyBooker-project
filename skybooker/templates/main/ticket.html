@@ -22,11 +22,11 @@
         <div class="ticket-price-info">
             <div class="ticket-price">
                 <span>Цена</span>
-                <p class="ticket-price-value">{{ flight_class_info.ticket_price }}</p>
+                <p class="ticket-price-value">{{ flight_class_info.ticket_price|floatformat:0 }}</p>
             </div>
             <div class="ticket-luggage-price">
                 <span>Багаж</span>
-                <p class="ticket-price-value">{{ flight_class_info.luggage_price }}</p>
+                <p class="ticket-price-value">{{ flight_class_info.luggage_price|floatformat:0 }}</p>
             </div>
         </div>
         <a href="{% url 'main:book_ticket' flight.id %}" class="buy-ticket">Приобрести билет</a>

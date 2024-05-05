@@ -19,7 +19,14 @@ from datetime import datetime
 
 def index(request):
     flights_temp = Flight.objects.all()
-    return render(request, 'main/index.html', {'flights_temp': flights_temp})
+    cities = Airport.objects.all().values_list('city', flat=True).distinct()
+
+    context = {
+        'flights_temp': Flight.objects.all(),
+        'cities': cities,
+    }
+
+    return render(request, 'main/index.html', context)
 
 
 @login_required
