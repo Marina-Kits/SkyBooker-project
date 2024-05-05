@@ -11,7 +11,7 @@
     <section id="main-content">
         <form id="flights-search-form" method="GET" action="{% url 'main:flight_search' %}">
             <div class="search-container">
-                <input type="search" id="from-input" name="departure_city" placeholder="Откуда">
+                <input type="search" id="from-input" name="departure_city" placeholder="Откуда" value="{{ departure_city }}">
                 <ul class="cities-list" id="from-cities-list">
                     {% for city in cities %}
                         <li>{{ city }}</li>
@@ -20,7 +20,7 @@
             </div>
 
             <div class="search-container">
-                <input type="search" id="to-input" name="arrival_city" placeholder="Куда">
+                <input type="search" id="to-input" name="arrival_city" placeholder="Куда" value="{{ arrival_city }}">
                 <ul class="cities-list" id="to-cities-list">
                     {% for city in cities %}
                         <li>{{ city }}</li>
@@ -28,7 +28,7 @@
                 </ul>
             </div>
 
-            <input type="text" id="datepicker" name="departure_date" placeholder="Когда">
+            <input type="text" id="datepicker" name="departure_date" placeholder="Когда" value="{{ departure_date }}">
             <div id="passengers-number-choice">
                 <div class="dropdown-button">1 пассажир</div>
                 <ul class="dropdown-list">
