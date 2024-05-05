@@ -95,6 +95,8 @@ def flight_search(request):
         ).prefetch_related('flightclassinfo_set')
         request.session['service_class'] = service_class
 
+        cities = Airport.objects.all().values_list('city', flat=True).distinct()
+
         filtered_flights = []
         for flight in flights:
             flight_class_info = flight.flightclassinfo_set.filter(
@@ -111,6 +113,7 @@ def flight_search(request):
             'departure_date': departure_date,
             'number_of_passengers': number_of_passengers,
             'service_class': service_class,
+            'cities': cities,
         }
 
         return render(request, 'main/index.html', context)
