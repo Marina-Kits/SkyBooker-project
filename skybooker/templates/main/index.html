@@ -123,16 +123,17 @@
             </ul>
         </div>
         <section id="tickets-list">
-            {{ Flight.objects.all }}
+            <!--{{ Flight.objects.all }}
             {% for flight in flights_temp %}
                 {% include 'main/ticket.html' with flight=flight %}
-            {% endfor %}
+            {% endfor %}-->
 
             
             {% for flight in flights %}
-                {% include 'main/ticket.html' with flight=flight %}
                 {% for flight_class_info in flight.flightclassinfo_set.all %}
-                    {% include 'main/ticket.html' with flight=flight flight_class_info=flight_class_info %}
+                    {% if flight_class_info.service_class == request.session.service_class %}
+                        {% include 'main/ticket.html' with flight=flight flight_class_info=flight_class_info %}
+                    {% endif %}
                 {% endfor %}
             {% endfor %}
             
