@@ -165,7 +165,8 @@
     flex-direction: column;
     gap: 20px;
     margin-bottom: 20px;
-    width: 100%;
+    width: 764px;
+    transform: translate(-20%, 0);
 }
 .passenger-characteristic-value{
     height: 22px;
@@ -180,4 +181,28 @@
 #add-passenger-form,
 #profile-passengers-list{
     display: none;
+}
+.passenger-tickets .ticket-card{
+    width: 730px;
+}
+.passenger-tickets{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    display: none;
+}
+.ticket-luggage-price > .luggage-not-included{
+    font-size: 20px;
+}
+.toggle-tickets{
+    cursor: pointer;
+    background-color: var(--pink-light);
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-weight: 400;
+    transition: .3s;
+}
+.toggle-tickets:hover{
+    background-color: var(--pink-color);
+    box-shadow: 0px 0px 10px 0px rgba(255, 181, 238, .7);
 }

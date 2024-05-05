@@ -77,7 +77,8 @@
     font-size: 32px;
 }
 .buy-ticket,
-.open-flight-info{
+.open-flight-info,
+.cancel-ticket{
     position: absolute;
     right: 43px;
     bottom: 20px;
@@ -92,12 +93,23 @@
     transition: .3s;
     font-size: 18px;
 }
+.cancel-ticket{
+    padding: 4px;
+    padding-top: 20px;
+}
 .buy-ticket:hover,
-.open-flight-info:hover{
+.open-flight-info:hover,
+.cancel-ticket:hover{
     background-color: var(--violet-color);
     box-shadow: 0px 0px 10px 0px rgba(198, 175, 238, .7);
 }
 .plane-container{
     margin-top: 30px;
     opacity: .5;
+}
+.service-class-p{
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    font-size: 20px;
 }

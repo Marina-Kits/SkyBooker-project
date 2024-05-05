@@ -1,6 +1,7 @@
 {% extends 'main/head-template.html' %}
 {% load static %}
 {% block styles %}
+    <link rel="stylesheet" href="{% static 'css/ticket.css' %}">
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 {% block title %}Профиль{% endblock %}
@@ -55,10 +56,46 @@
             <ul id="profile-passengers-list" style="display: none;">
                 {% for passenger, tickets in passenger_tickets.items %}
                     <li class="profile-passenger-info">
-                        {% include 'main/passenger-card.html' %}<h3>Tickets:</h3>
-                        <ul>
+                        {% include 'main/passenger-card.html' %}
+                        <h3 class="toggle-tickets">Билеты</h3>
+                        <ul class="passenger-tickets" style="display: none;">
                             {% for ticket in tickets %}
-                                <li>{{ ticket }}</li>
+                                <li>
+                                    <div class="ticket-card">
+                                        <p class="ticket-airline">Авиакомпания {{ ticket.flight.airline }}</p>
+                                        <div class="ticket-time-info">
+                                            <div class="ticket-departure-info">
+                                                <span>Отправление</span>
+                                                <p class="ticket-time">{{ ticket.flight.departure_time|time:"H:i" }}</p>
+                                                <p class="ticket-city-date">{{ ticket.flight.departure_airport.city }}<br>{{ ticket.flight.departure_time|date:"d.m" }}</p>
+                                            </div>
+                                            <div class="plane-container">
+                                                <img src="{% static 'img/airplane.svg' %}" width="40px">
+                                            </div>
+                                            <div class="ticket-arrival-info">
+                                                <span>Прибытие</span>
+                                                <p class="ticket-time">{{ ticket.flight.arrival_time|time:"H:i" }}</p>
+                                                <p class="ticket-city-date">{{ ticket.flight.arrival_airport.city }}<br>{{ ticket.flight.arrival_time|date:"d.m" }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="ticket-price-info">
+                                            <div class="ticket-price">
+                                                <span>Цена</span>
+                                                <p class="ticket-price-value">{{ ticket.price|floatformat:0 }}</p>
+                                            </div>
+                                            <div class="ticket-luggage-price">
+                                                <span>Багаж</span>
+                                                {% if ticket.luggage %}
+                                                    <p class="ticket-price-value">{{ ticket.luggage_price|floatformat:0 }}</p>
+                                                {% else %}
+                                                    <p class="ticket-price-value luggage-not-included">Не включен</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <a href=# class="cancel-ticket">Отменить бронь</a>
+                                        <p class="service-class-p">{{ ticket.get_service_class_display }} класс</p>
+                                    </div>
+                                </li>
                             {% empty %}
                                 <li>No tickets found.</li>
                             {% endfor %}
@@ -177,5 +214,21 @@
             }
             return cookieValue;
         }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var toggleButtons = document.querySelectorAll('.toggle-tickets');
+            toggleButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var parentLi = button.closest('li');
+                    var ticketList = parentLi.querySelector('.passenger-tickets');
+                    if (ticketList.style.display === 'none' || ticketList.style.display === '') {
+                        ticketList.style.display = 'flex';
+                    } else {
+                        ticketList.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
 {% endblock %}
