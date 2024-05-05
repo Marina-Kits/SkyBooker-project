@@ -263,3 +263,12 @@ def confirmation(request, ticket_ids):
         return redirect('main:index')
     else:
         return render(request, 'main/confirmation.html', {'ticket_ids': ticket_ids})
+
+
+def cancel_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    flight_class_info = FlightClassInfo.objects.get(flight=ticket.flight, service_class=ticket.service_class)
+    ticket.delete()
+    flight_class_info.seats_number += 1
+    flight_class_info.save()
+    return redirect('main:profile')

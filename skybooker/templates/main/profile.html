@@ -92,7 +92,7 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <a href=# class="cancel-ticket">Отменить бронь</a>
+                                        <a href="#" class="cancel-ticket" data-ticket-id="{{ ticket.id }}">Отменить бронь</a>
                                         <p class="service-class-p">{{ ticket.get_service_class_display }} класс</p>
                                     </div>
                                 </li>
@@ -227,6 +227,32 @@
                     } else {
                         ticketList.style.display = 'none';
                     }
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var cancelButtons = document.querySelectorAll('.cancel-ticket');
+            cancelButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    
+                    var ticketId = button.dataset.ticketId;
+                    var url = "/cancel-ticket/" + ticketId + "/";
+                    
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': "{{ csrf_token }}",
+                        },
+                    })
+                    .then(response => {
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
                 });
             });
         });
