@@ -1,35 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Ticket</title>
-</head>
-<body>
-    <h1>Book Ticket</h1>
-    <form method="POST">
-        {% csrf_token %}
-        <label for="passengers">Passengers:</label><br>
-        {% for passenger in passengers %}
-            <input type="checkbox" name="passengers" value="{{ passenger.id }}" id="passenger_{{ passenger.id }}">
-            <label for="passenger_{{ passenger.id }}">{{ passenger.full_name }}</label><br>
-        {% endfor %}
-
-        <label for="class_choice">Class:</label>
-        <select name="class_choice" id="class_choice">
-            {% for choice in class_choices %}
-                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+{% extends 'main/head-template.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/flight-airport-create.css' %}">
+    <link rel="stylesheet" href="{% static 'css/book_ticket.css' %}">
+{% endblock %}
+{% block title %}Бронирование билета{% endblock %}
+{% block content %}
+    {% include 'main/header.html' %}
+    <section id="main-content">
+        <h1>Бронирование билета</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="passengers" class="booking-label">Пассажиры:</label>
+            {% for passenger in passengers %}
+                <p class="passengers-choice">
+                    <input type="checkbox" name="passengers" value="{{ passenger.id }}" id="passenger_{{ passenger.id }}">
+                    <label for="passenger_{{ passenger.id }}">{{ passenger.full_name }}</label>
+                </p>
             {% endfor %}
-        </select><br>
+            <p>
+                <label for="class_choice" class="booking-label">Класс обслуживания:</label>
+                <select name="class_choice" id="class_choice">
+                    {% for choice in class_choices %}
+                        <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <p class="luggage-choice">
+                <label for="luggage" class="booking-label">Багаж:</label>
+                <input type="checkbox" name="luggage" id="luggage">
+            </p>
 
-        <label for="luggage">Luggage:</label>
-        <input type="checkbox" name="luggage" id="luggage"><br>
-
-        <button type="submit">Book</button>
-    </form>
-
+            <button type="submit">Забронировать</button>
+        </form>
+    </section>
     {% if error_message %}
         <p class="errors-notification">{{ error_message }}</p>
     {% endif %}
 </body>
-</html>
+{% endblock %}

@@ -193,12 +193,22 @@ def book_ticket(request, flight_id):
         class_choice = request.POST.get('class_choice')
         luggage = request.POST.get('luggage', False) == 'on'
 
+        if not passengers_selected:
+            passengers = request.user.passengers.all()
+            class_choices = Ticket.CLASS_CHOICES
+            error_message = "Выберите хотя бы одного пассажира."
+            return render(request, 'main/book_ticket.html',
+                          {'flight': flight, 'passengers': passengers, 'class_choices': class_choices,
+                           'error_message': error_message})
+
         flight_class_info = FlightClassInfo.objects.get(flight=flight, service_class=class_choice)
         if flight_class_info.seats_number < len(passengers_selected):
             passengers = request.user.passengers.all()
             class_choices = Ticket.CLASS_CHOICES
-            error_message = "Not enough available seats in the selected class."
-            return render(request, 'main/book_ticket.html', {'flight': flight, 'passengers': passengers, 'class_choices': class_choices, 'error_message': error_message})
+            error_message = "Недостаточно мест"
+            return render(request, 'main/book_ticket.html',
+                          {'flight': flight, 'passengers': passengers, 'class_choices': class_choices,
+                           'error_message': error_message})
 
         created_tickets = []
         for passenger_id in passengers_selected:

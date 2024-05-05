@@ -16,6 +16,9 @@
     border-radius: 10px;
     width: 600px;
 }    
+#main-content > #book-confirmation-form{
+    border-color: transparent;
+}
 h1{
     font-weight: 500;
     font-size: 36px;
@@ -101,4 +104,7 @@ h3{
     background-color: var(--pink-light);
     border-radius: 10px;
     text-align: center;
+}
+#ticket_confirm{
+    font-size: 26px;
 }

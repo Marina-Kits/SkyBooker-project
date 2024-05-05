@@ -1,0 +1,25 @@
+.passengers-choice{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+input[type="checkbox"]{
+    width: 270px;
+}
+.passengers-choice input[type="checkbox"]{
+    width: 15px;
+}
+.booking-label{
+    font-size: 26px;
+}
+.passengers-choice > *{
+    display: block;
+    width: 300px;
+}
+p{
+    margin-top: 10px;
+}
+.passengers-choice{
+    margin-top: 0;
+    font-size: 20px;
+}

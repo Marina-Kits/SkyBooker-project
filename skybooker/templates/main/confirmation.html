@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation</title>
-</head>
-<body>
-    <h1>Booking Confirmation</h1>
-    <form method="post">
-        {% csrf_token %}
-        {% for passenger_id in passenger_ids %}
-            <input type="hidden" name="passenger_ids" value="{{ passenger_id }}">
-        {% endfor %}
-        <button type="submit">Confirm Tickets for Selected Passengers</button>
-    </form>
+{% extends 'main/head-template.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/flight-airport-create.css' %}">
+{% endblock %}
+{% block title %}Подтверждение{% endblock %}
+{% block content %}
+    {% include 'main/header.html' %}
+    <section id="main-content">
+        <h1>Заплатите денюжку пожалуйста</h1>
+        <form method="post" id="book-confirmation-form">
+            {% csrf_token %}
+            <button type="submit" id="ticket_confirm">Я заплатил, честно</button>
+        </form>
+    </section>
 
 </body>
-</html>
+{% endblock %}
