@@ -23,3 +23,33 @@ p{
     margin-top: 0;
     font-size: 20px;
 }
+#class-price-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    max-width: 900px;
+}
+.class-price-info{
+    background-color: var(--pink-light);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+    width: 200px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media (max-width: 600px) {
+    .class-price-info {
+        flex: 1 1 100%;
+    }
+}
+.class-price-info > p{
+    margin: 0;
+}
+.class-price-info > p:first-child{
+    font-size: 22px;
+    align-self: center;
+}

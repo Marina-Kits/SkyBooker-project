@@ -33,6 +33,45 @@
 
             <button type="submit">Забронировать</button>
         </form>
+        <h1>Цены</h1>
+        <section id="class-price-list">
+            <div class="class-price-info">
+                <p>Эконом класс</p>
+                {% if class_prices.economy.ticket_price > 0 %}
+                    <p>Билет: {{ class_prices.economy.ticket_price|floatformat:0 }}</p>
+                    <p>Багаж: {{ class_prices.economy.luggage_price|floatformat:0 }}</p>
+                {% else %}
+                    <p>Недоступно</p>
+                {% endif %}
+            </div>
+            <div class="class-price-info">
+                <p>Комфорт класс</p>
+                {% if class_prices.comfort.ticket_price > 0 %}
+                    <p>Билет: {{ class_prices.comfort.ticket_price|floatformat:0 }}</p>
+                    <p>Багаж: {{ class_prices.comfort.luggage_price|floatformat:0 }}</p>
+                {% else %}
+                    <p>Недоступно</p>
+                {% endif %}
+            </div>
+            <div class="class-price-info">
+                <p>Бизнес класс</p>
+                {% if class_prices.business.ticket_price > 0 %}
+                    <p>Билет: {{ class_prices.business.ticket_price|floatformat:0 }}</p>
+                    <p>Багаж: {{ class_prices.business.luggage_price|floatformat:0 }}</p>
+                {% else %}
+                    <p>Недоступно</p>
+                {% endif %}
+            </div>
+            <div class="class-price-info">
+                <p>Первый класс</p>
+                {% if class_prices.first_class.ticket_price > 0 %}
+                    <p>Билет: {{ class_prices.first_class.ticket_price|floatformat:0 }}</p>
+                    <p>Багаж: {{ class_prices.first_class.luggage_price|floatformat:0 }}</p>
+                {% else %}
+                    <p>Недоступно</p>
+                {% endif %}
+            </div>
+        </section>
     </section>
     {% if error_message %}
         <p class="errors-notification">{{ error_message }}</p>

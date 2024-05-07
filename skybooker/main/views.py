@@ -207,21 +207,39 @@ def book_ticket(request, flight_id):
         luggage = request.POST.get('luggage', False) == 'on'
 
         if not passengers_selected:
+            class_choices = FlightClassInfo.objects.filter(flight=flight).values_list('service_class',
+                                                                                      flat=True).distinct()
+            class_prices = {}
+            for class_choice in class_choices:
+                flight_class_info = FlightClassInfo.objects.get(flight=flight, service_class=class_choice)
+                class_prices[class_choice] = {
+                    'ticket_price': flight_class_info.ticket_price,
+                    'luggage_price': flight_class_info.luggage_price
+                }
             passengers = request.user.passengers.all()
             class_choices = Ticket.CLASS_CHOICES
             error_message = "Выберите хотя бы одного пассажира."
             return render(request, 'main/book_ticket.html',
                           {'flight': flight, 'passengers': passengers, 'class_choices': class_choices,
-                           'error_message': error_message})
+                           'error_message': error_message, 'class_prices': class_prices})
 
         flight_class_info = FlightClassInfo.objects.get(flight=flight, service_class=class_choice)
         if flight_class_info.seats_number < len(passengers_selected):
+            class_choices = FlightClassInfo.objects.filter(flight=flight).values_list('service_class',
+                                                                                      flat=True).distinct()
+            class_prices = {}
+            for class_choice in class_choices:
+                flight_class_info = FlightClassInfo.objects.get(flight=flight, service_class=class_choice)
+                class_prices[class_choice] = {
+                    'ticket_price': flight_class_info.ticket_price,
+                    'luggage_price': flight_class_info.luggage_price
+                }
             passengers = request.user.passengers.all()
             class_choices = Ticket.CLASS_CHOICES
             error_message = "Недостаточно мест"
             return render(request, 'main/book_ticket.html',
                           {'flight': flight, 'passengers': passengers, 'class_choices': class_choices,
-                           'error_message': error_message})
+                           'error_message': error_message, 'class_prices': class_prices})
 
         created_tickets = []
         for passenger_id in passengers_selected:
@@ -244,14 +262,21 @@ def book_ticket(request, flight_id):
             created_tickets.append(ticket)
             flight_class_info.seats_number -= 1
             flight_class_info.save()
-            total_price = sum(ticket.price + ticket.luggage_price for ticket in created_tickets)
         return redirect('main:confirmation', ticket_ids=','.join([str(ticket.id) for ticket in created_tickets]))
 
     else:
+        class_choices = FlightClassInfo.objects.filter(flight=flight).values_list('service_class', flat=True).distinct()
+        class_prices = {}
+        for class_choice in class_choices:
+            flight_class_info = FlightClassInfo.objects.get(flight=flight, service_class=class_choice)
+            class_prices[class_choice] = {
+                'ticket_price': flight_class_info.ticket_price,
+                'luggage_price': flight_class_info.luggage_price
+            }
         passengers = request.user.passengers.all()
         class_choices = Ticket.CLASS_CHOICES
         return render(request, 'main/book_ticket.html',
-                      {'flight': flight, 'passengers': passengers, 'class_choices': class_choices})
+                      {'flight': flight, 'passengers': passengers, 'class_choices': class_choices, 'class_prices': class_prices})
 
 
 @login_required
