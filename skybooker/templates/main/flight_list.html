@@ -1,8 +1,8 @@
 {% extends 'main/head-template.html' %}
 {% load static %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/admin-flights.css' %}">
     <link rel="stylesheet" href="{% static 'css/ticket.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin-flights.css' %}">
 {% endblock %}
 {% block title %}Список рейсов{% endblock %}
 {% block content %}
@@ -41,7 +41,10 @@
                                 {% endfor %}
                             </ul>
                         </div>
+                        <div class="ticket-buttons-container">
+                            <a href="{% url 'main:flight_tickets' flight.id %}" class="open-book-info">Открыть билеты</a>
                             <a href="{% url 'main:flight_info_edit' flight.id %}" class="open-flight-info">Открыть информацию</a>
+                        </div>
                     </div>
                 </li>
             {% endfor %}

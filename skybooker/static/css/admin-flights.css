@@ -26,7 +26,8 @@ h1{
     flex-direction: column;
     gap: 20px;
 }
-.admin-seats-number{
+.admin-seats-number,
+.admin-ticket-info{
     position: absolute;
     right: 22px;
     top: 60px;
@@ -46,4 +47,41 @@ h1{
 .seats-left{
     font-size: 18px;
     text-align: center;    
+}
+.ticket-buttons-container{
+    position: absolute;
+    right: 15px;
+    bottom: 20px;
+    display: flex;
+    gap: 15px;
+    border: 1px black;
+}
+.open-flight-info,
+.open-book-info{
+    position: relative;
+    right: 0;
+    bottom: 0;
+    width: 155px;
+    height: 40px;
+    background-color: var(--violet-light);
+    padding: 8px;
+    padding-bottom: 12px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 10px;
+    transition: .3s;
+    font-size: 18px;
+}
+.open-book-info{
+    width: 131px;
+    height: 40px;
+    padding: 8px 20px 12px 20px;
+}
+.admin-ticket-info{
+    max-height: 120px;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    font-size: 16px;
+    display: block;
+    width: 200px;
 }

@@ -1,0 +1,81 @@
+{% extends 'main/head-template.html' %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/ticket.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin-flights.css' %}">
+{% endblock %}
+{% block title %}Список рейсов{% endblock %}
+{% block content %}
+    {% include 'main/header.html' %}
+    <div id="main-content">
+        <h1>Список билетов для выбранного рейса</h1>
+        <ul id="admin-book-list">
+            {% for ticket in tickets %}
+                <li>
+                    <div class="ticket-card">
+                        <p class="ticket-airline">Авиакомпания {{ ticket.flight.airline }}</p>
+                        <div class="ticket-time-info">
+                            <div class="ticket-departure-info">
+                                <span>Отправление</span>
+                                <p class="ticket-time">{{ ticket.flight.departure_time|time:"H:i" }}</p>
+                                <p class="ticket-city-date">{{ ticket.flight.departure_airport.city }}<br>{{ ticket.flight.departure_time|date:"d.m" }}</p>
+                            </div>
+                            <div class="plane-container">
+                                <img src="{% static 'img/airplane.svg' %}" width="40px">
+                            </div>
+                            <div class="ticket-arrival-info">
+                                <span>Прибытие</span>
+                                <p class="ticket-time">{{ ticket.flight.arrival_time|time:"H:i" }}</p>
+                                <p class="ticket-city-date">{{ ticket.flight.arrival_airport.city }}<br>{{ ticket.flight.arrival_time|date:"d.m" }}</p>
+                            </div>
+                        </div>
+                        <div class="admin-ticket-info">
+                            <p style="text-transform: uppercase;">{{ ticket.passenger.full_name }}</p>
+                            <p>{{ ticket.passenger.passport_number }}</p>
+                            <p>Цена: {{ ticket.price|floatformat:0 }}</p>
+                            <p>Багаж:
+                                {% if ticket.luggage %}
+                                    {{ ticket.luggage_price|floatformat:0 }}
+                                {% else %}
+                                    Не включен
+                                {% endif %}
+                            </p>
+                        </div>
+                        
+                        <a href="#" class="cancel-ticket" data-ticket-id="{{ ticket.id }}">Отменить бронь</a>
+                        <p class="service-class-p">{{ ticket.get_service_class_display }} класс</p>
+                    </div>
+                </li>
+            {% empty %}
+                <li>Нет доступных билетов</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var cancelButtons = document.querySelectorAll('.cancel-ticket');
+            cancelButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    
+                    var ticketId = button.dataset.ticketId;
+                    var url = "/cancel-ticket/" + ticketId + "/";
+                    
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': "{{ csrf_token }}",
+                        },
+                    })
+                    .then(response => {
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}
