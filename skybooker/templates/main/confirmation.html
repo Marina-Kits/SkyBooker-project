@@ -8,6 +8,7 @@
     {% include 'main/header.html' %}
     <section id="main-content">
         <h1>Заплатите денюжку пожалуйста</h1>
+        <p style="font-size: 26px">С Вас {{ total_price|floatformat:0 }} рублей (можно округлить до 1000000)</p>
         <form method="post" id="book-confirmation-form">
             {% csrf_token %}
             <button type="submit" id="ticket_confirm">Я заплатил, честно</button>

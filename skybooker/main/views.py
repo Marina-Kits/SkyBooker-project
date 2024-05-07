@@ -244,7 +244,7 @@ def book_ticket(request, flight_id):
             created_tickets.append(ticket)
             flight_class_info.seats_number -= 1
             flight_class_info.save()
-
+            total_price = sum(ticket.price + ticket.luggage_price for ticket in created_tickets)
         return redirect('main:confirmation', ticket_ids=','.join([str(ticket.id) for ticket in created_tickets]))
 
     else:
@@ -257,7 +257,8 @@ def book_ticket(request, flight_id):
 @login_required
 def confirmation(request, ticket_ids):
     ticket_id_list = [int(id) for id in ticket_ids.split(',')]
-
+    created_tickets = Ticket.objects.filter(id__in=ticket_id_list)
+    total_price = sum(ticket.price + ticket.luggage_price for ticket in created_tickets)
     if request.method == 'POST':
         for ticket_id in ticket_id_list:
             ticket = Ticket.objects.get(id=ticket_id)
@@ -266,7 +267,7 @@ def confirmation(request, ticket_ids):
 
         return redirect('main:index')
     else:
-        return render(request, 'main/confirmation.html', {'ticket_ids': ticket_ids})
+        return render(request, 'main/confirmation.html', {'ticket_ids': ticket_ids, 'total_price': total_price})
 
 
 @login_required
