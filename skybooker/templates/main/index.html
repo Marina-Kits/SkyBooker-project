@@ -119,6 +119,9 @@
             
         </section>
     </section>
+    {% if error_message %}
+        <p class="errors-notification">{{ error_message }}</p>
+    {% endif %}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const dropdownButtons = document.querySelectorAll('.dropdown-button');

@@ -41,6 +41,7 @@ def profile_view(request):
     return render(request, 'main/profile.html', {'passenger_tickets': passenger_tickets})
 
 
+@login_required
 def add_passenger_view(request):
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
@@ -58,6 +59,7 @@ def add_passenger_view(request):
     return render(request, 'main/profile.html')
 
 
+@login_required
 def delete_passenger_view(request, passenger_id):
     if request.method == 'POST':
         try:
@@ -196,6 +198,7 @@ def flight_info_and_edit(request, flight_id):
     return render(request, 'main/flight_info_edit.html', {'flight': flight, 'form': form})
 
 
+@login_required
 def book_ticket(request, flight_id):
     flight = get_object_or_404(Flight, id=flight_id)
     if request.method == 'POST':
@@ -251,6 +254,7 @@ def book_ticket(request, flight_id):
                       {'flight': flight, 'passengers': passengers, 'class_choices': class_choices})
 
 
+@login_required
 def confirmation(request, ticket_ids):
     ticket_id_list = [int(id) for id in ticket_ids.split(',')]
 
@@ -265,6 +269,7 @@ def confirmation(request, ticket_ids):
         return render(request, 'main/confirmation.html', {'ticket_ids': ticket_ids})
 
 
+@login_required
 def cancel_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
     flight_class_info = FlightClassInfo.objects.get(flight=ticket.flight, service_class=ticket.service_class)

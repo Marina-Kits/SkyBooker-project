@@ -29,5 +29,7 @@
                 <p class="ticket-price-value">{{ flight_class_info.luggage_price|floatformat:0 }}</p>
             </div>
         </div>
-        <a href="{% url 'main:book_ticket' flight.id %}" class="buy-ticket">Приобрести билет</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'main:book_ticket' flight.id %}" class="buy-ticket">Приобрести билет</a>
+        {% endif %}
     </div>
