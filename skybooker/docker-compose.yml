@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+  redis:
+    image: "redis:alpine"
+  celery:
+    build: .
+    command: celery -A skybooker worker -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+  celery-beat:
+    build: .
+    command: celery -A skybooker beat -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - redis

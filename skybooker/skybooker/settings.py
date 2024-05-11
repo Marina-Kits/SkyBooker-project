@@ -35,7 +35,17 @@ LOGOUT_REDIRECT_URL = reverse_lazy('main:profile')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'delete_expired_tickets_every_minute': {
+        'task': 'main.tasks.delete_expired_tickets',
+        'schedule': crontab(minute='*'),
+    },
+}
 # Application definition
 
 INSTALLED_APPS = [
