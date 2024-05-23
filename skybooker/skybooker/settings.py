@@ -33,7 +33,14 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = reverse_lazy('main:index')
 LOGOUT_REDIRECT_URL = reverse_lazy('main:profile')
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'skybooker2024@gmail.com'
+EMAIL_HOST_PASSWORD = 'gbhu omsj domw bsme'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+"gbhu omsj domw bsme"
 
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'

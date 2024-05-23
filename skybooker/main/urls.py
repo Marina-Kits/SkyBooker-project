@@ -3,6 +3,7 @@ from django.urls import path
 from .views import index, profile_view, delete_passenger_view, update_email, flight_search
 from .views import index, profile_view, delete_passenger_view, update_email, FlightListView, FlightCreateView, \
     create_flight, create_airport
+from users.views import confirm_email
 
 app_name = 'main'
 
@@ -21,4 +22,5 @@ urlpatterns = [
     path('confirmation/<str:ticket_ids>/', views.confirmation, name='confirmation'),
     path('cancel-ticket/<int:ticket_id>/', views.cancel_ticket, name='cancel_ticket'),
     path('flight/<int:flight_id>/tickets/', views.flight_tickets, name='flight_tickets'),
+    path('confirm_email/<str:token>/', confirm_email, name='confirm_email'),
 ]
