@@ -7,7 +7,7 @@ from django.utils import timezone
 
 @shared_task
 def delete_expired_tickets():
-    expiration_time = datetime.now() - timedelta(minutes=5)
+    expiration_time = datetime.now() - timedelta(minutes=15)
 
     expired_tickets = Ticket.objects.filter(is_confirmed=False, booking_time__lte=expiration_time)
 
