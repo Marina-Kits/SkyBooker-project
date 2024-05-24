@@ -52,6 +52,7 @@ class Ticket(models.Model):
     service_class = models.CharField(max_length=20, choices=CLASS_CHOICES)
     booking_time = models.DateTimeField(default=timezone.now)
     is_confirmed = models.BooleanField(default=False)
+    reminder_sent = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Билет до {self.flight} - {self.passenger}'

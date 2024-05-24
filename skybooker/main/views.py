@@ -309,3 +309,4 @@ def cancel_ticket(request, ticket_id):
 def flight_tickets(request, flight_id):
     tickets = Ticket.objects.filter(flight_id=flight_id)
     return render(request, 'main/flight_tickets.html', {'tickets': tickets})
+

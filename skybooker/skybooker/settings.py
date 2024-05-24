@@ -52,7 +52,13 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'main.tasks.delete_expired_tickets',
         'schedule': crontab(minute='*'),
     },
+    'send_flight_reminders': {
+        'task': 'main.tasks.send_flight_reminders',
+        'schedule': crontab(minute='*'),
+    },
 }
+
+
 # Application definition
 
 INSTALLED_APPS = [
