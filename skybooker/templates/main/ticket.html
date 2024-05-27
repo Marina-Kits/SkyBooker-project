@@ -30,6 +30,20 @@
             </div>
         </div>
         {% if user.is_authenticated %}
+            <form method="post" action="{% url 'main:subscribe_to_flight' flight.id %}">
+                {% csrf_token %}
+                <button type="submit" class="subscribe-button">
+                    {% if request.user in flight.subscribers.all %}
+                        Отменить подписку
+                    {% else %}
+                        Подписаться на рассылку
+                    {% endif %}
+                </button>
+            </form>
+        {% endif %}
+
+
+        {% if user.is_authenticated %}
             <a href="{% url 'main:book_ticket' flight.id %}" class="buy-ticket">Приобрести билет</a>
         {% endif %}
     </div>

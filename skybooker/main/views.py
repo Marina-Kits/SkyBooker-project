@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from .models import Passenger, Flight, FlightClassInfo, Airport
 from django import template
@@ -309,4 +309,14 @@ def cancel_ticket(request, ticket_id):
 def flight_tickets(request, flight_id):
     tickets = Ticket.objects.filter(flight_id=flight_id)
     return render(request, 'main/flight_tickets.html', {'tickets': tickets})
+
+
+def subscribe_to_flight(request, flight_id):
+    flight = get_object_or_404(Flight, id=flight_id)
+    if request.method == 'POST':
+        if request.user in flight.subscribers.all():
+            flight.subscribers.remove(request.user)
+        else:
+            flight.subscribers.add(request.user)
+    return redirect('main:index')
 

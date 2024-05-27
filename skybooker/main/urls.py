@@ -2,7 +2,7 @@ from . import views
 from django.urls import path
 from .views import index, profile_view, delete_passenger_view, update_email, flight_search
 from .views import index, profile_view, delete_passenger_view, update_email, FlightListView, FlightCreateView, \
-    create_flight, create_airport
+    create_flight, create_airport, subscribe_to_flight
 from users.views import confirm_email
 
 app_name = 'main'
@@ -23,4 +23,5 @@ urlpatterns = [
     path('cancel-ticket/<int:ticket_id>/', views.cancel_ticket, name='cancel_ticket'),
     path('flight/<int:flight_id>/tickets/', views.flight_tickets, name='flight_tickets'),
     path('confirm_email/<str:token>/', confirm_email, name='confirm_email'),
+    path('flight/<int:flight_id>/subscribe/', subscribe_to_flight, name='subscribe_to_flight'),
 ]
