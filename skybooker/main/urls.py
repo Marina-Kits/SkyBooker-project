@@ -24,4 +24,5 @@ urlpatterns = [
     path('flight/<int:flight_id>/tickets/', views.flight_tickets, name='flight_tickets'),
     path('confirm_email/<str:token>/', confirm_email, name='confirm_email'),
     path('flight/<int:flight_id>/subscribe/', subscribe_to_flight, name='subscribe_to_flight'),
+    path('subscriptions/', views.subscriptions_view, name='subscriptions'),
 ]

@@ -1,0 +1,29 @@
+{% extends 'main/head-template.html' %}
+
+{% block content %}
+  <h1>Мои подписки на рейсы</h1>
+
+  {% if subscriptions %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Рейс</th>
+          <th>Дата и время отправления</th>
+          <th>Дата и время прибытия</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for subscription in subscriptions %}
+          <tr>
+            <td>{{ subscription.departure_airport.city }} - {{ subscription.arrival_airport.city }}</td>
+            <td>{{ subscription.departure_time|date:"D d M Y H:i" }}</td>
+            <td>{{ subscription.arrival_time|date:"D d M Y H:i" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>У вас пока нет подписок на рейсы.</p>
+  {% endif %}
+
+{% endblock %}

@@ -59,3 +59,24 @@ def send_update_notification(email, departure_city, arrival_city, departure_date
         recipient_list=[email],
         fail_silently=False,
     )
+
+
+@shared_task
+def send_flight_change_notification(flight_id, old_departure_time, old_arrival_time, new_departure_time, new_arrival_time):
+    from main.models import Flight, Ticket
+    flight = Flight.objects.get(id=flight_id)
+    departure_city = flight.departure_airport.city
+    arrival_city = flight.arrival_airport.city
+
+    tickets = Ticket.objects.filter(flight_id=flight_id)
+
+    for ticket in tickets:
+        subject = f"Изменение времени рейса {departure_city} - {arrival_city}"
+        message = f"Время рейса {departure_city} - {arrival_city} изменено. Новое время отправления: {new_departure_time}, время прибытия: {new_arrival_time}."
+        recipient_list = [ticket.passenger.users.all()[0].email]
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email="no-reply@example.com",
+            recipient_list=recipient_list,
+        )

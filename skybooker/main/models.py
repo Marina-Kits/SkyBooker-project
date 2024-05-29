@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from datetime import datetime
 from django.contrib.auth import get_user_model
-from .tasks import send_update_notification
+from .tasks import send_update_notification, send_flight_change_notification
 
 class Passenger(models.Model):
     GENDER_CHOICES = (
@@ -53,18 +53,15 @@ class Flight(models.Model):
             super().save(*args, **kwargs)
 
             if changes:
-                self.notify_subscribers(changes)
+                send_flight_change_notification.delay(
+                    self.id,
+                    old_flight.departure_time,
+                    old_flight.arrival_time,
+                    self.departure_time,
+                    self.arrival_time,
+                )
         else:
             super().save(*args, **kwargs)
-
-    def notify_subscribers(self, changes):
-        subscribers = self.subscribers.all().exclude(
-            pk__in=self.notified_subscribers.all()
-        )
-        for subscriber in subscribers:
-            send_update_notification.delay(subscriber.email, self.name, changes)
-            self.notified_subscribers.add(subscriber)
-        self.save()
 
     def __str__(self):
         return f"Flight from {self.departure_airport} to {self.arrival_airport}"

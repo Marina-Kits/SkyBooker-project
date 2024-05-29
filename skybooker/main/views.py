@@ -320,3 +320,12 @@ def subscribe_to_flight(request, flight_id):
             flight.subscribers.add(request.user)
     return redirect('main:index')
 
+
+@login_required
+def subscriptions_view(request):
+    user = request.user
+    subscriptions = Flight.objects.filter(subscribers=user)
+    context = {
+        'subscriptions': subscriptions,
+    }
+    return render(request, 'main/subscriptions.html', context)
