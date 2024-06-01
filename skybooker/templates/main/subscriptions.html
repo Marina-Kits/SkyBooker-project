@@ -10,6 +10,7 @@
           <th>Рейс</th>
           <th>Дата и время отправления</th>
           <th>Дата и время прибытия</th>
+          <th>Подписка</th>
         </tr>
       </thead>
       <tbody>
@@ -18,6 +19,19 @@
             <td>{{ subscription.departure_airport.city }} - {{ subscription.arrival_airport.city }}</td>
             <td>{{ subscription.departure_time|date:"D d M Y H:i" }}</td>
             <td>{{ subscription.arrival_time|date:"D d M Y H:i" }}</td>
+            <td>
+              {% if request.user in subscription.subscribers.all %}
+                <form method="post" action="{% url 'main:subscribe_to_flight' subscription.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="subscribe-button">Отменить подписку</button>
+                </form>
+              {% else %}
+                <form method="post" action="{% url 'main:subscribe_to_flight' subscription.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="subscribe-button">Подписаться на рассылку</button>
+                </form>
+              {% endif %}
+            </td>
           </tr>
         {% endfor %}
       </tbody>

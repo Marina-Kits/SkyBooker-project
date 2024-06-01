@@ -1,4 +1,4 @@
-from celery import shared_task
+from celery import shared_task, current_app
 from datetime import datetime, timedelta
 from django.apps import apps
 from django.core.mail import send_mail
@@ -80,3 +80,36 @@ def send_flight_change_notification(flight_id, old_departure_time, old_arrival_t
             from_email="no-reply@example.com",
             recipient_list=recipient_list,
         )
+
+
+'''@shared_task
+def generate_flights(departure_airport_id):
+    from main.models import Flight, Airport, FlightClassInfo, Ticket
+
+    # Получить выбранный аэропорт отправления
+    departure_airport = Airport.objects.get(id=departure_airport_id)
+
+    # Получить список всех аэропортов, кроме выбранного аэропорта отправления
+    arrival_airports = [a for a in Airport.objects.all() if a != departure_airport]
+
+    for arrival_airport in arrival_airports:
+        departure_time = timezone.now() + timezone.timedelta(hours=1)
+        arrival_time = departure_time + timezone.timedelta(hours=3)
+
+        flight = Flight.objects.create(
+            airline='Unknown Airline',
+            departure_airport=departure_airport,
+            arrival_airport=arrival_airport,
+            departure_time=departure_time,
+            arrival_time=arrival_time,
+        )
+
+        for service_class in Ticket.CLASS_CHOICES:
+            FlightClassInfo.objects.create(
+                flight=flight,
+                service_class=service_class[0],
+                seats_number=100,
+                luggage_price=100,
+                ticket_price=1000,
+            )'''
+

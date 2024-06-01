@@ -311,6 +311,8 @@ def flight_tickets(request, flight_id):
     return render(request, 'main/flight_tickets.html', {'tickets': tickets})
 
 
+
+
 def subscribe_to_flight(request, flight_id):
     flight = get_object_or_404(Flight, id=flight_id)
     if request.method == 'POST':
@@ -318,7 +320,9 @@ def subscribe_to_flight(request, flight_id):
             flight.subscribers.remove(request.user)
         else:
             flight.subscribers.add(request.user)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return redirect('main:index')
+
 
 
 @login_required
