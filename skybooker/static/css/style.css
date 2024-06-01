@@ -23,6 +23,7 @@ body{
     --violet-light: rgb(203, 187, 232, 0.5);
     --text-color: #584D6D;
     --background-color: #FDFDFD;
+    --border-color:  rgba(88, 77, 109, 0.2);
 }
 ::-webkit-scrollbar {
     width: 15px;
