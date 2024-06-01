@@ -9,9 +9,6 @@
     {% include 'main/header.html' %}
     <section id="main-content">
         <div id="user-info">
-            <p>
-              <a href="{% url 'main:subscriptions' %}">Мои подписки</a>
-            </p>
             <ul id="user-characteristics">
                 <li class="user-characteristic">
                     <p class="profile-characteristic-name">Пользователь:</p>
@@ -27,6 +24,7 @@
             <button id="save-user-info">Сохранить</button>
         </div>
         <div id="profile-passengers-info">
+            <a href="{% url 'main:subscriptions' %}" id="my-subscriptions">Мои подписки</a>
             <div id="passengers-buttons">
                 <button id="open-passengers-list">Пассажиры</button>
                 <button id="profile-add-passenger"><img src="{% static 'img/add-passenger.svg' %}"></button>

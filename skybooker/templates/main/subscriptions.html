@@ -1,43 +1,48 @@
 {% extends 'main/head-template.html' %}
-
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/ticket.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+{% block title %}Подписки{% endblock %}
 {% block content %}
-  <h1>Мои подписки на рейсы</h1>
-
-  {% if subscriptions %}
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Рейс</th>
-          <th>Дата и время отправления</th>
-          <th>Дата и время прибытия</th>
-          <th>Подписка</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for subscription in subscriptions %}
-          <tr>
-            <td>{{ subscription.departure_airport.city }} - {{ subscription.arrival_airport.city }}</td>
-            <td>{{ subscription.departure_time|date:"D d M Y H:i" }}</td>
-            <td>{{ subscription.arrival_time|date:"D d M Y H:i" }}</td>
-            <td>
-              {% if request.user in subscription.subscribers.all %}
-                <form method="post" action="{% url 'main:subscribe_to_flight' subscription.id %}">
-                  {% csrf_token %}
-                  <button type="submit" class="subscribe-button">Отменить подписку</button>
-                </form>
-              {% else %}
-                <form method="post" action="{% url 'main:subscribe_to_flight' subscription.id %}">
-                  {% csrf_token %}
-                  <button type="submit" class="subscribe-button">Подписаться на рассылку</button>
-                </form>
-              {% endif %}
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>У вас пока нет подписок на рейсы.</p>
-  {% endif %}
-
+{% include 'main/header.html' %}
+    <section id="main-content">
+        <h1>Мои подписки на рейсы</h1>
+        {% if subscriptions %}
+            <section id="tickets-list">
+                {% for subscription in subscriptions %}
+                    <div class="ticket-card">
+                        <p class="ticket-airline">Авиакомпания {{ subscription.airline }}</p>
+                        <div class="ticket-time-info">
+                            <div class="ticket-departure-info">
+                                <span>Отправление</span>
+                                <p class="ticket-time">{{ subscription.departure_time|time:"H:i" }}</p>
+                                <p class="ticket-city-date">{{ subscription.departure_airport.city }}<br>{{ subscription.departure_time|date:"d.m" }}</p>
+                            </div>
+                            <div class="plane-container">
+                                <img src="{% static 'img/airplane.svg' %}" width="40px">
+                            </div>
+                            <div class="ticket-arrival-info">
+                                <span>Прибытие</span>
+                                <p class="ticket-time">{{ subscription.arrival_time|time:"H:i" }}</p>
+                                <p class="ticket-city-date">{{ subscription.arrival_airport.city }}<br>{{ subscription.arrival_time|date:"d.m" }}</p>
+                            </div>
+                        </div>
+                        <form method="post" action="{% url 'main:subscribe_to_flight' subscription.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="subscribe-button">
+                                <img src="{% static 'img/bell-off.svg' %}" alt="Отменить подписку" height="26px">
+                            </button>
+                        </form>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'main:book_ticket' subscription.id %}" class="buy-ticket">Приобрести билет</a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </section>
+        {% else %}
+            <p>У вас пока нет подписок на рейсы.</p>
+        {% endif %}
+    </section>
 {% endblock %}

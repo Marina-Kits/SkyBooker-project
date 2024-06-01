@@ -203,3 +203,23 @@
     background-color: var(--pink-color);
     box-shadow: 0px 0px 10px 0px rgba(255, 181, 238, .7);
 }
+#my-subscriptions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    height: 60px;
+    width: 200px;
+    background-color: var(--violet-light);
+    transition: .3s;
+    border-radius: 10px;
+}
+#my-subscriptions:hover{
+    background-color: var(--violet-color);
+    box-shadow: 0px 0px 10px 0px rgba(198, 175, 238, .7);
+}
+h1{
+    font-weight: 500;
+    font-size: 36px;
+}
