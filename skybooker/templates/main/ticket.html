@@ -34,9 +34,9 @@
                 {% csrf_token %}
                 <button type="submit" class="subscribe-button">
                     {% if request.user in flight.subscribers.all %}
-                        Отменить подписку
+                        <img src="{% static 'img/bell-off.svg' %}" alt="Отменить подписку" height="26px">
                     {% else %}
-                        Подписаться на рассылку
+                        <img src="{% static 'img/bell-on.svg' %}" alt="Подписаться на рассылку" height="25px">
                     {% endif %}
                 </button>
             </form>

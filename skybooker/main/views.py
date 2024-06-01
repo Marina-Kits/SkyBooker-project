@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from .models import Passenger, Flight, FlightClassInfo, Airport
@@ -320,7 +320,7 @@ def subscribe_to_flight(request, flight_id):
             flight.subscribers.remove(request.user)
         else:
             flight.subscribers.add(request.user)
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return redirect('main:index')
 
 

@@ -116,3 +116,12 @@
     bottom: 30px;
     font-size: 20px;
 }
+.subscribe-button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 57px;
+    background-color: transparent;
+    cursor: pointer;
+    width: 60px;
+}
