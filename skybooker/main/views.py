@@ -321,7 +321,7 @@ def subscribe_to_flight(request, flight_id):
         else:
             flight.subscribers.add(request.user)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    return redirect('main:index')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 
